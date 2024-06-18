@@ -14,7 +14,7 @@ public class emenyAI : MonoBehaviour
     Transform currentDest;
     Vector3 dest;
     int randNum, randNum2;
-    //public int destinationAmount;
+    public AudioSource walkAudio, growlAudio;
 
     void Start()
     {
@@ -24,10 +24,16 @@ public class emenyAI : MonoBehaviour
             destinations.Add(waypoint.transform);
         }
 
+        walkAudio = GetComponent<AudioSource>();
+
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
         aiAnim.SetTrigger("walk");
+        walkAudio.Play();
+
+        growlAudio = GetComponents<AudioSource>()[1];
+        growlAudio.Stop();
     }
 
     void Update()
@@ -50,6 +56,8 @@ public class emenyAI : MonoBehaviour
                 {
                     aiAnim.ResetTrigger("walk");
                     aiAnim.SetTrigger("idle");
+                    walkAudio.Stop();
+                    growlAudio.Play();
                     StartCoroutine(stayIdle());
                     walking = false;
                 }
@@ -66,5 +74,7 @@ public class emenyAI : MonoBehaviour
         currentDest = destinations[randNum];
         aiAnim.ResetTrigger("idle");
         aiAnim.SetTrigger("walk");
+        walkAudio.Play();
+        growlAudio.Stop();
     }
 }
