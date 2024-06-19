@@ -3933,17 +3933,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai: {fileID: 498388563}
   destinations: []
-  aiAnim: {fileID: 498388556}
+  aiAnimation: {fileID: 498388556}
   walkSpeed: 5
-  chaseSpeed: 6
+  chaseSpeed: 10
   minIdleTime: 2
   maxIdleTime: 9
   idleTime: 0
+  sightDistance: 10
+  catchDistance: 3
+  chaseTime: 0
+  minChaseTime: 10
+  maxChaseTime: 25
+  jumpscareTime: 2
   walking: 1
   chasing: 0
   player: {fileID: 177270529}
   walkAudio: {fileID: 498388565}
-  growlAudio: {fileID: 0}
+  growlAudio: {fileID: 498388567}
+  rayCastOffSet: {x: 0, y: 0, z: 0}
+  deathScene: 
 --- !u!195 &498388563
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3958,7 +3966,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -3983,7 +3991,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.6113839, y: 1.7990683, z: 0.57806826}
   m_Center: {x: 0.1120537, y: 0.9090248, z: -0.07186189}
@@ -7156,7 +7164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 800396434}
   m_Layer: 0
-  m_Name: Destinations
+  m_Name: Waypoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17958,27 +17966,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.2728
+      value: 2.4205973
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.2728
+      value: 2.4205973
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.2728
+      value: 2.4205973
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.15
+      value: -19.27
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.74
+      value: 2.83
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -22.74
+      value: -23.49
       objectReference: {fileID: 0}
     - target: {fileID: 4022741551580116, guid: e10e470cb8ac58346ab2adcf73cc6e93, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22395,11 +22403,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
       propertyPath: maxEnergy
-      value: 10000
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
       propertyPath: sprintspeed
-      value: 18
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
       propertyPath: energySlider
