@@ -16,6 +16,8 @@ public class NoteUI : MonoBehaviour
     public static int totalNotesInScene = 0; // Static variable to keep track of total note count in the scene
     GameObject Cover;
 
+    private bool isCollected = false; // Flag to check if the note has been collected
+
     void Start()
     {
         NoteImage.enabled = false;
@@ -28,6 +30,9 @@ public class NoteUI : MonoBehaviour
 
     public void ShowNoteImage()
     {
+        if (isCollected) return; // Return if the note has already been collected
+
+        isCollected = true; // Mark the note as collected
         pickup.Play();
         foreach (GameObject GateCover in GameObject.FindGameObjectsWithTag("Gates"))
         {
@@ -83,4 +88,3 @@ public class NoteUI : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, GizmosRadius);
     }
 }
-
