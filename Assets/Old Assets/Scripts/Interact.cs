@@ -12,6 +12,8 @@ public class Interact : MonoBehaviour
 
     public bool Interacting;
 
+    private bool canInteract = true; // Added to prevent multiple interactions per frame
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,14 +31,13 @@ public class Interact : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, InteractDistance, interactLayer))
         {
-            if (!Interacting)
+            if (!Interacting && canInteract) // Only allow interaction if not already interacting and canInteract is true
             {
                 if (InteractIcon != null)
                 {
                     InteractIcon.enabled = true;
                 }
 
-                // Change from Input.GetButtonDown("Interact") to Input.GetKeyDown(KeyCode.E)
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (hit.collider.tag == "Note")
@@ -50,6 +51,7 @@ public class Interact : MonoBehaviour
                         {
                             noteUI.HideNoteImage();
                         }
+                        canInteract = false; // Set canInteract to false to prevent further interaction this frame
                     }
                 }
             }
@@ -61,6 +63,8 @@ public class Interact : MonoBehaviour
                 InteractIcon.enabled = false;
             }
         }
+
+        // Reset canInteract at the end of the frame to allow interaction again next frame
+        canInteract = true;
     }
 }
-
