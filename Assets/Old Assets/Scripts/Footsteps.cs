@@ -11,6 +11,9 @@ public class Footsteps : MonoBehaviour
     public float SprintDistance = 0.80f;
     private float TimeBetween;
 
+    public float soundRadius = 10f;
+    public Transform player;
+
     // Reference to the Movement script
     private Movement playerMovement;
 
@@ -22,9 +25,24 @@ public class Footsteps : MonoBehaviour
 
     void FixedUpdate()
     {
-        Step();
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            DetectEnemies();
+        }
     }
 
+    void DetectEnemies()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, soundRadius);
+        foreach (var hitCollider in hitColliders)
+        {
+            enemyAI enemyAI = hitCollider.GetComponent<enemyAI>();
+            if (enemyAI != null)
+            {
+                enemyAI.OnHearFootstep(transform.position);
+            }
+        }
+    }
     void Step()
     {
         bool isMoving = Input.GetButton("Horizontal") || Input.GetButton("Vertical");

@@ -1,17 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-public class emenyAI : MonoBehaviour
+public class enemyAI : MonoBehaviour
 {
     public NavMeshAgent ai;
     public List<Transform> destinations;
     public Animator aiAnimation;
     public float walkSpeed, chaseSpeed, minIdleTime, maxIdleTime,
-        idleTime, sightDistance, catchDistance, chaseTime, 
+        idleTime, sightDistance, catchDistance, chaseTime,
         minChaseTime, maxChaseTime, jumpscareTime;
     public bool walking, chasing;
     public Transform player;
@@ -19,7 +18,6 @@ public class emenyAI : MonoBehaviour
     Vector3 dest;
     int randNum;
     public AudioSource walkAudio, growlAudio;
-    public Vector3 rayCastOffSet;
     public string deathScene;
 
     void Start()
@@ -30,80 +28,97 @@ public class emenyAI : MonoBehaviour
             destinations.Add(waypoint.transform);
         }
 
-        //walkAudio = GetComponent<AudioSource>();
-
         walking = true;
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
         aiAnimation.SetTrigger("walk");
         walkAudio.Play();
 
-        //growlAudio = GetComponents<AudioSource>()[1];
         growlAudio.Stop();
     }
 
     void Update()
     {
+        if (chasing)
+        {
+            ChasePlayer();
+        }
+        else if (walking)
+        {
+            WalkToDestination();
+        }
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, direction, out hit, sightDistance))
+        if (Physics.Raycast(transform.position, direction, out hit, sightDistance))
         {
-            if(hit.collider.gameObject.tag == "Player")
+            if (hit.collider.gameObject.tag == "Player")
             {
-                Debug.Log("Phát hiện người chơi.");
-                walking = false;
-                StopCoroutine("stayIdle");
-                StopCoroutine("chaseRoutine");
-                StartCoroutine("chaseRoutine");
-                growlAudio.Stop();
-                walkAudio.Play();
-                chasing = true;
+                Debug.Log("Player detected in the detection zone.");
+                StartChasing(player.transform.position);
             }
         }
+    }
 
-        if(chasing)
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            dest = player.position;
-            ai.destination = dest;
-            ai.speed = chaseSpeed;
+            Debug.Log("Player entered detection zone.");
+            StartChasing(other.transform.position);
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player detected in the detection zone.");
+            StartChasing(other.transform.position);
+        }
+    }
+
+    void ChasePlayer()
+    {
+        dest = player.position;
+        ai.destination = dest;
+        ai.speed = chaseSpeed;
+        aiAnimation.ResetTrigger("walk");
+        aiAnimation.ResetTrigger("idle");
+        aiAnimation.SetTrigger("sprint");
+
+        if (!ai.pathPending && ai.remainingDistance <= catchDistance)
+        {
+            Debug.Log("Player caught by the monster.");
+            player.gameObject.SetActive(false);
             aiAnimation.ResetTrigger("walk");
             aiAnimation.ResetTrigger("idle");
-            aiAnimation.SetTrigger("sprint");
-
-            if (!ai.pathPending && ai.remainingDistance <= catchDistance)
-            {
-                Debug.Log("Người chơi bị bắt bởi quái vật.");
-                player.gameObject.SetActive(false);
-                aiAnimation.ResetTrigger("walk");
-                aiAnimation.ResetTrigger("idle");
-                aiAnimation.ResetTrigger("sprint");
-                growlAudio.Stop();
-                walkAudio.Stop();
-                aiAnimation.SetTrigger("jumpscare");
-                StartCoroutine(deathRoutine());
-                Debug.Log("Vô hiệu hóa người chơi và dừng âm thanh.");
-                chasing = false;
-            }
-        }
-
-        if (walking == true)
-        {
-            dest = currentDest.position;
-            ai.destination = dest;
-            ai.speed = walkSpeed;
             aiAnimation.ResetTrigger("sprint");
-            aiAnimation.ResetTrigger("idle");
-            aiAnimation.SetTrigger("walk");
-            if (!ai.pathPending && ai.remainingDistance <= ai.stoppingDistance)
-            {
-                aiAnimation.ResetTrigger("sprint");
-                aiAnimation.ResetTrigger("walk");
-                aiAnimation.SetTrigger("idle");
-                walkAudio.Stop();
-                growlAudio.Play();
-                StartCoroutine(stayIdle());
-                walking = false;
-            }
+            growlAudio.Stop();
+            walkAudio.Stop();
+            aiAnimation.SetTrigger("jumpscare");
+            StartCoroutine(deathRoutine());
+            Debug.Log("Disabled player and stopped all sounds.");
+            chasing = false;
+        }
+    }
+
+    void WalkToDestination()
+    {
+        dest = currentDest.position;
+        ai.destination = dest;
+        ai.speed = walkSpeed;
+        aiAnimation.ResetTrigger("sprint");
+        aiAnimation.ResetTrigger("idle");
+        aiAnimation.SetTrigger("walk");
+        if (!ai.pathPending && ai.remainingDistance <= ai.stoppingDistance)
+        {
+            aiAnimation.ResetTrigger("sprint");
+            aiAnimation.ResetTrigger("walk");
+            aiAnimation.SetTrigger("idle");
+            walkAudio.Stop();
+            growlAudio.Play();
+            StartCoroutine(stayIdle());
+            walking = false;
         }
     }
 
@@ -134,5 +149,29 @@ public class emenyAI : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpscareTime);
         SceneManager.LoadScene(deathScene);
+    }
+
+    public void OnHearFootstep(Vector3 footstepPosition)
+    {
+        Debug.Log("Footstep heard at: " + footstepPosition);
+        StartChasing(footstepPosition);
+    }
+
+    private void StartChasing(Vector3 targetPosition)
+    {
+        if (!chasing)
+        {
+            chasing = true;
+            dest = targetPosition;
+            ai.destination = dest;
+            ai.speed = chaseSpeed;
+            aiAnimation.ResetTrigger("walk");
+            aiAnimation.ResetTrigger("idle");
+            aiAnimation.SetTrigger("sprint");
+            StartCoroutine("chaseRoutine");
+            growlAudio.Stop();
+            walkAudio.Play();
+            Debug.Log("Started chasing towards: " + targetPosition);
+        }
     }
 }

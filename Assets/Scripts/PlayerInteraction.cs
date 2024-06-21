@@ -10,12 +10,27 @@ public class PlayerInteraction : MonoBehaviour
     public Image PickupUI;
     public Image InteractIcon;
 
+
+    public AudioSource playerFootstep;
+    public float footstepRadius = 10f;
+    public float footstepInterval = 0.5f;
+    private CharacterController characterController;
+
     void Start()
     {
         // At the start disable the UI for picking up
         PickupUI.enabled = false;
     }
 
+    IEnumerator GenerateFootstep() { 
+        while (true)
+        {
+            if(characterController.isGrounded && characterController.velocity.magnitude > 0.2f)
+            {
+                playerFootstep.Play();
+            }
+        }
+    }
     void Update()
     {
         //Create a raycast going forward
