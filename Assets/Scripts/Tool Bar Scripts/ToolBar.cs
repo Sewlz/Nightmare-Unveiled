@@ -29,7 +29,6 @@ public class Toolbar : MonoBehaviour
             {
                 selectedIndex = i;
                 UpdateSelection();
-                UseSelectedItem();
                 break;
             }
         }
