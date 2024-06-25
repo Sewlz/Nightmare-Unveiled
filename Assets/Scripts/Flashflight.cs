@@ -1,43 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
-
 
 public class Flashflight : MonoBehaviour
 {
     public GameObject flashLight;
-
     public AudioSource turnOn;
     public AudioSource turnOff;
 
-    public bool on;
-    public bool off;
-    // Start is called before the first frame update
+    private bool isOn = false;
+
     void Start()
     {
-        off = true;
         flashLight.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ToggleFlashlight()
     {
-        if (off && Input.GetKeyDown(KeyCode.T))
+        isOn = !isOn;
+        flashLight.SetActive(isOn);
+
+        if (isOn)
         {
-            flashLight.SetActive(true);
             turnOn.Play();
-            off = false;
-            on = true;
         }
-        else if (on && Input.GetKeyDown(KeyCode.T))
+        else
         {
-            flashLight.SetActive(false);
             turnOff.Play();
-            off = true;
-            on = false;
-
         }
-
     }
 }

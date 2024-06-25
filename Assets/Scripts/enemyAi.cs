@@ -17,7 +17,7 @@ public class enemyAI : MonoBehaviour
     Transform currentDest;
     Vector3 dest;
     int randNum;
-    public AudioSource walkAudio, growlAudio;
+    public AudioSource walkAudio, growlAudio, chaseAudio;
     public string deathScene;
 
     void Start()
@@ -85,7 +85,7 @@ public class enemyAI : MonoBehaviour
         aiAnimation.ResetTrigger("walk");
         aiAnimation.ResetTrigger("idle");
         aiAnimation.SetTrigger("sprint");
-
+        
         if (!ai.pathPending && ai.remainingDistance <= catchDistance)
         {
             Debug.Log("Player caught by the monster.");
@@ -95,6 +95,7 @@ public class enemyAI : MonoBehaviour
             aiAnimation.ResetTrigger("sprint");
             growlAudio.Stop();
             walkAudio.Stop();
+            chaseAudio.Stop();
             aiAnimation.SetTrigger("jumpscare");
             StartCoroutine(deathRoutine());
             Debug.Log("Disabled player and stopped all sounds.");
@@ -142,6 +143,7 @@ public class enemyAI : MonoBehaviour
         randNum = Random.Range(0, destinations.Count);
         currentDest = destinations[randNum];
         growlAudio.Stop();
+        chaseAudio.Stop();
         walkAudio.Play();
     }
 
@@ -171,6 +173,7 @@ public class enemyAI : MonoBehaviour
             StartCoroutine("chaseRoutine");
             growlAudio.Stop();
             walkAudio.Play();
+            chaseAudio.Play();
             Debug.Log("Started chasing towards: " + targetPosition);
         }
     }

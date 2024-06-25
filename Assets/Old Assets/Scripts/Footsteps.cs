@@ -20,15 +20,17 @@ public class Footsteps : MonoBehaviour
     void Start()
     {
         Controller = GetComponent<CharacterController>();
-        playerMovement = GetComponent<Movement>(); // Get the Movement script
+        playerMovement = GetComponent<Movement>();
     }
 
     void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
+            Debug.Log("Keydown-activated");
             DetectEnemies();
         }
+        Step();
     }
 
     void DetectEnemies()
