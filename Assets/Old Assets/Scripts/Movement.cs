@@ -23,12 +23,18 @@ public class Movement : MonoBehaviour
     public float energyDecreaseRate = 10f;
     public float energyIncreaseRate = 5f;
 
+    //Animation
+    private Animator animator;
+
     void Start()
     {
         // Initialize energy
         currentEnergy = maxEnergy;
         energySlider.maxValue = maxEnergy;
         energySlider.value = currentEnergy;
+
+        //Animation
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -74,6 +80,22 @@ public class Movement : MonoBehaviour
                 move.Normalize();
             }
             controller.Move(move * speed * Time.deltaTime);
+        }
+
+        // Animation
+        if(move == Vector3.zero)
+        {
+            //Idle
+            animator.SetFloat("Speed", 0);
+        }
+        else if(!Input.GetKey(KeyCode.LeftShift))
+        {
+            //Walk
+            animator.SetFloat("Speed", 0.5f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 1);
         }
 
         // Increase energy when not sprinting or not moving
