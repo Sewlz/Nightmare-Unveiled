@@ -60,7 +60,7 @@ public class Movement : MonoBehaviour
         // Sprinting logic
         if (Input.GetKey(KeyCode.LeftShift) && currentEnergy > 0 && isMoving)
         {
-            Debug.Log("Sprinting");
+            //Debug.Log("Sprinting");
             if (move.sqrMagnitude > 1)
             {
                 move.Normalize();
