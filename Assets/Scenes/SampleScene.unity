@@ -23900,6 +23900,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1138883065}
+    - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
       propertyPath: groundMask.m_Bits
       value: 0
       objectReference: {fileID: 0}
