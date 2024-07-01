@@ -14265,6 +14265,18 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3561771208839646599, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561771208839646599, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3561771208839646599, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 3566207899841815972, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
@@ -24755,6 +24767,10 @@ PrefabInstance:
       propertyPath: groundDistance
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1138883065}
     - target: {fileID: 546972413010397715, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
       propertyPath: groundMask.m_Bits
       value: 0
