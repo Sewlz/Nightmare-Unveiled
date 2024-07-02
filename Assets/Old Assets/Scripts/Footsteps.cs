@@ -28,7 +28,7 @@ public class Footsteps : MonoBehaviour
         Step();
         if (Input.GetKey(KeyCode.LeftShift) && isCollide == true)
         {
-            Debug.Log("Keydown-activated");
+            //Debug.Log("Keydown-activated");
             DetectEnemies();
         }
     }
@@ -85,7 +85,7 @@ public class Footsteps : MonoBehaviour
                 if (!SprintSound.isPlaying)
                 {
                     SprintSound.Play();
-                    Debug.Log("Sprinting sound playing");
+                    //Debug.Log("Sprinting sound playing");
                 }
                 TimeBetween = 0f;
             }
@@ -98,7 +98,7 @@ public class Footsteps : MonoBehaviour
                 if (!WalkSound.isPlaying)
                 {
                     WalkSound.Play();
-                    Debug.Log("Walking sound playing");
+                    //Debug.Log("Walking sound playing");
                 }
                 TimeBetween = 0f;
             }

@@ -16,9 +16,10 @@ public class enemyAI : MonoBehaviour
     public Transform player;
     Transform currentDest;
     Vector3 dest;
-    int randNum;
     public AudioSource walkAudio, growlAudio, chaseAudio;
     public string deathScene;
+    public float aiDistance;
+    public GameObject hideText, stopHideText;
 
     void Start()
     {
@@ -29,26 +30,18 @@ public class enemyAI : MonoBehaviour
         }
 
         walking = true;
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
         aiAnimation.SetTrigger("walk");
-        walkAudio.Play();
 
+        walkAudio.Play();
         growlAudio.Stop();
     }
 
     void Update()
     {
-        if (chasing)
-        {
-            ChasePlayer();
-        }
-        else if (walking)
-        {
-            WalkToDestination();
-        }
         Vector3 direction = (player.position - transform.position).normalized;
         RaycastHit hit;
+        aiDistance = Vector3.Distance(player.position, this.transform.position);
         if (Physics.Raycast(transform.position, direction, out hit, sightDistance))
         {
             if (hit.collider.gameObject.tag == "Player")
@@ -56,6 +49,14 @@ public class enemyAI : MonoBehaviour
                 Debug.Log("Player detected in the detection zone. RAYCASTHIT");
                 StartChasing(player.transform.position);
             }
+        }
+        if (chasing)
+        {
+            ChasePlayer();
+        }
+        else if (walking)
+        {
+            WalkToDestination();
         }
     }
 
@@ -68,12 +69,14 @@ public class enemyAI : MonoBehaviour
         aiAnimation.ResetTrigger("idle");
         aiAnimation.SetTrigger("sprint");
         
-        if (!ai.pathPending && ai.remainingDistance <= catchDistance)
+        if (!ai.pathPending && aiDistance <= catchDistance)
         {
             Debug.Log("Player caught by the monster.");
             player.gameObject.SetActive(false);
             aiAnimation.ResetTrigger("walk");
             aiAnimation.ResetTrigger("idle");
+            hideText.SetActive(false);
+            stopHideText.SetActive(false);
             aiAnimation.ResetTrigger("sprint");
             growlAudio.Stop();
             walkAudio.Stop();
@@ -110,8 +113,7 @@ public class enemyAI : MonoBehaviour
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         yield return new WaitForSeconds(idleTime);
         walking = true;
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
         walkAudio.Play();
         growlAudio.Stop();
     }
@@ -120,10 +122,14 @@ public class enemyAI : MonoBehaviour
     {
         chaseTime = Random.Range(minChaseTime, maxChaseTime);
         yield return new WaitForSeconds(chaseTime);
+        stopChase();
+    }
+
+    public void stopChase()
+    {
         walking = true;
         chasing = false;
-        randNum = Random.Range(0, destinations.Count);
-        currentDest = destinations[randNum];
+        currentDest = destinations[Random.Range(0, destinations.Count)];
         growlAudio.Stop();
         chaseAudio.Stop();
         walkAudio.Play();
