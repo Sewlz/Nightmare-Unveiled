@@ -46,7 +46,7 @@ public class enemyAI : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "Player")
             {
-                Debug.Log("Player detected in the detection zone.");
+                Debug.Log("Player detected in the detection zone. RAYCASTHIT");
                 StartChasing(player.transform.position);
             }
         }
@@ -57,24 +57,6 @@ public class enemyAI : MonoBehaviour
         else if (walking)
         {
             WalkToDestination();
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player entered detection zone.");
-            StartChasing(other.transform.position);
-        }
-    }
-
-    void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Debug.Log("Player detected in the detection zone.");
-            StartChasing(other.transform.position);
         }
     }
 

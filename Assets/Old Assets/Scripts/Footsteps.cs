@@ -16,7 +16,7 @@ public class Footsteps : MonoBehaviour
 
     // Reference to the Movement script
     private Movement playerMovement;
-
+    private bool isCollide = false;
     void Start()
     {
         Controller = GetComponent<CharacterController>();
@@ -25,14 +25,29 @@ public class Footsteps : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        Step();
+        if (Input.GetKey(KeyCode.LeftShift) && isCollide == true)
         {
             //Debug.Log("Keydown-activated");
             DetectEnemies();
         }
-        Step();
     }
-
+    void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<SphereCollider>() != null)
+        {
+            Debug.Log("Player footstep detected in the detection zone.");
+            isCollide = true;
+        }
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<SphereCollider>() != null)
+        {
+            Debug.Log("Player footstep detected in the detection zone.");
+            isCollide = true;
+        }
+    }
     void DetectEnemies()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, soundRadius);
