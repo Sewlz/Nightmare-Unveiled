@@ -2,23 +2,36 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public Item item;
+    public Item itemPrefab;  // Reference to the Item prefab or scriptable object
+    [Space(10)]
+    [SerializeField] [TextArea] public string noteTexts;
 
-    private void OnTriggerStay(Collider other)
+    public string GetName()
     {
-        if (other.CompareTag("Player"))
+        return itemPrefab.name;
+    }
+    public void PickUp(PlayerInventory playerInventory)
+    {
+        if (noteTexts != null)
         {
-            PlayerInventory playerInventory = other.GetComponent<PlayerInventory>();
-            if (playerInventory != null)
+            // Create a new instance of Item
+            Item newItem = Instantiate(itemPrefab);
+            newItem.paragraph = noteTexts;
+
+            // Attempt to pick up the new item
+            bool pickedUp = playerInventory.PickUpItem(newItem, noteTexts);
+            if (pickedUp)
             {
-                if (Input.GetKeyDown(KeyCode.F))
-                {
-                    bool pickedUp = playerInventory.PickUpItem(item);
-                    if (pickedUp)
-                    {
-                        Destroy(gameObject);
-                    }
-                }
+                Destroy(gameObject);
+            }
+        }
+        else
+        {
+            Item newItem = Instantiate(itemPrefab);
+            bool pickedUp = playerInventory.PickUpItem(newItem, noteTexts);
+            if (pickedUp)
+            {
+                Destroy(gameObject);
             }
         }
     }

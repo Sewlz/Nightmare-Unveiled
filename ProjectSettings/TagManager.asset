@@ -6,11 +6,12 @@ TagManager:
   tags:
   - waypoint
   - Enemy
+  - Item
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Item
   - Water
   - UI
   - 

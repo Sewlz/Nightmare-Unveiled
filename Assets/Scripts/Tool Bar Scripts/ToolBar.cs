@@ -14,11 +14,13 @@ public class Toolbar : MonoBehaviour
     {
         UpdateSelection();
         playerInventory = FindObjectOfType<PlayerInventory>(); // Find the PlayerInventory in the scene
+        
     }
 
     void Update()
     {
         HandleInput();
+        Debug.Log(playerInventory.ToString());
     }
 
     void HandleInput()
@@ -31,6 +33,17 @@ public class Toolbar : MonoBehaviour
                 UpdateSelection();
                 break;
             }
+        }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (scroll > 0f)
+        {
+            selectedIndex = (selectedIndex - 1 + slots.Length) % slots.Length;
+            UpdateSelection();
+        }
+        else if (scroll < 0f)
+        {
+            selectedIndex = (selectedIndex + 1) % slots.Length;
+            UpdateSelection();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -78,6 +91,14 @@ public class Toolbar : MonoBehaviour
                 if (flashlight != null)
                 {
                     flashlight.ToggleFlashlight();
+                }
+            }
+            if (selectedItem.isNote)
+            {
+                NoteController note = FindObjectOfType<NoteController>();
+                if (note != null)
+                {
+                    note.ShowNote(selectedItem);
                 }
             }
         }
