@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Toolbar : MonoBehaviour
 {
     public Image[] slots;
     public Color selectedColor = Color.yellow;
     public Color defaultColor = Color.white;
     private int selectedIndex = 0;
-
     private PlayerInventory playerInventory; // Reference to player inventory
 
     void Start()
@@ -45,10 +44,10 @@ public class Toolbar : MonoBehaviour
             selectedIndex = (selectedIndex + 1) % slots.Length;
             UpdateSelection();
         }
-        if (Input.GetKeyDown(KeyCode.E))
+/*        if (Input.GetMouseButtonDown(0))
         {
             UseSelectedItem();
-        }
+        }*/
     }
 
     void UpdateSelection()
@@ -100,6 +99,14 @@ public class Toolbar : MonoBehaviour
                 {
                     note.ShowNote(selectedItem);
                 }
+            }
+            if (selectedItem.isEnDrink)
+            {
+                EnergyDrink energyDrink = FindObjectOfType<EnergyDrink>();
+                if (energyDrink != null) {
+                    energyDrink.Use();
+                }
+                
             }
         }
     }

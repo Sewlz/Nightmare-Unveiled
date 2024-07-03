@@ -35,7 +35,7 @@ public class NoteController : MonoBehaviour
     {
         if (isOpen)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
                 DisableNote();
             }
