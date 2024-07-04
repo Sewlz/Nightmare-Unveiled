@@ -13,7 +13,7 @@ public class EnergyDrink : MonoBehaviour
         {
             awarenessManager.IncreaseAwareness(awarenessBoost);
         }
-        Destroy(gameObject); 
+        /*Destroy(gameObject); */
     }
 }
 

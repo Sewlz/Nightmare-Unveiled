@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public Sprite itemIcon;
     public bool isFlashlight;
     public bool isNote;
+    public bool isEnDrink;
     public string paragraph;
 
     public string Paragraph { get => paragraph; set => paragraph = value; }
