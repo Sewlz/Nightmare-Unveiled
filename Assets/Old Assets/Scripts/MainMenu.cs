@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     private UiMenuSelection uiManager;
     private UiMenuControl uiControl;
+    public SceneLoader sceneLoader;
     void Start()
     {
         Cursor.visible = true;
@@ -49,7 +50,15 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("IntroScene");
     }
+    public void OnChapter1ButtonClicked()
+    {
+        sceneLoader.LoadScene("Chapter1");
+    }
 
+    public void OnChapter2ButtonClicked()
+    {
+        sceneLoader.LoadScene("Chapter2");
+    }
     public void Quit()
     {
         Application.Quit();
