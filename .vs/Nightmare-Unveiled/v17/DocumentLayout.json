@@ -1,0 +1,54 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Unity\\Nightmare-Unveiled\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\jumpscaretrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\jumpscaretrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SettingsController.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\SettingsController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\SettingsController.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\SettingsController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\SettingsController.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAgwBAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-05T14:01:12.872Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JumpscareTrigger.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\JumpscareTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\JumpscareTrigger.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\JumpscareTrigger.cs",
+              "RelativeToolTip": "Assets\\Scripts\\JumpscareTrigger.cs",
+              "ViewState": "AQIAAI0AAAAAAAAAAAAqwJwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-05T12:46:16.033Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
