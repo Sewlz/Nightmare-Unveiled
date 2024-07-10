@@ -10,7 +10,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject controlPanel;
     [Header("Look Script")]
     [SerializeField] private Lookscript lookScript;
-
+    [SerializeField] private Toolbar toolbar;
     private void Start()
     {
         // Ensure all panels are initially deactivated
@@ -33,6 +33,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0; // Pause the game
         if (lookScript != null)
         {
+            toolbar.enabled = false;
             lookScript.enabled = false; // Disable look script
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
             Cursor.visible = true; // Show cursor
@@ -78,6 +79,7 @@ public class MenuManager : MonoBehaviour
         if (lookScript != null)
         {
             lookScript.enabled = true; // Enable look script
+            toolbar.enabled = true;
             Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
             Cursor.visible = false; // Hide cursor
         }
