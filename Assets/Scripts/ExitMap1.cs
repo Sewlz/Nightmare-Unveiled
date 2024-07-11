@@ -6,25 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ExitMap1 : MonoBehaviour
 {
-    public string sceneMap2;
-
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
+    public string nextSceneMap;
 
     private void OnTriggerStay(Collider other)
     {
-        Debug.Log("OnTriggerStay called with: " + other.name);
-
         if (other.gameObject)
         {
-            SceneManager.LoadScene(sceneMap2);
+            SceneManager.LoadScene(nextSceneMap);
         }
     }
 }
