@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,8 +12,11 @@ namespace NavKeypad
         [Header("Events")]
         [SerializeField] private UnityEvent onAccessGranted;
         [SerializeField] private UnityEvent onAccessDenied;
-        [Header("Combination Code (9 Numbers Max)")]
-        [SerializeField] private int keypadCombo = 12345;
+        [Header("Combination Code (4 Numbers Max)")]
+        public int keypadCombo;
+        [Header("Note")]
+        public List<GameObject> lstNote;
+        ItemPickup itemPickup;
 
         public UnityEvent OnAccessGranted => onAccessGranted;
         public UnityEvent OnAccessDenied => onAccessDenied;
@@ -26,9 +30,9 @@ namespace NavKeypad
         [Range(0, 5)]
         [SerializeField] private float screenIntensity = 2.5f;
         [Header("Colors")]
-        [SerializeField] private Color screenNormalColor = new Color(0.98f, 0.50f, 0.032f, 1f); //orangy
-        [SerializeField] private Color screenDeniedColor = new Color(1f, 0f, 0f, 1f); //red
-        [SerializeField] private Color screenGrantedColor = new Color(0f, 0.62f, 0.07f); //greenish
+        [SerializeField] private Color screenNormalColor = new Color(0.98f, 0.50f, 0.032f, 1f); 
+        [SerializeField] private Color screenDeniedColor = new Color(1f, 0f, 0f, 1f);
+        [SerializeField] private Color screenGrantedColor = new Color(0f, 0.62f, 0.07f);
         [Header("SoundFx")]
         [SerializeField] private AudioClip buttonClickedSfx;
         [SerializeField] private AudioClip accessDeniedSfx;
@@ -45,12 +49,38 @@ namespace NavKeypad
 
         private void Awake()
         {
+            string random = "";
+            int i = 1;
+            int randomNum = 1;
+
             ClearInput();
             panelMesh.material.SetVector("_EmissionColor", screenNormalColor * screenIntensity);
+
+            GameObject[] notes = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] waypoints = GameObject.FindGameObjectsWithTag("RandomNote");
+            List<GameObject> waypointList = new List<GameObject>(waypoints);
+
+            foreach (GameObject note in notes)
+            {
+                i++;
+                lstNote.Add(note);
+                itemPickup = note.GetComponent<ItemPickup>();
+                randomNum = UnityEngine.Random.Range(1, 10);
+                itemPickup.noteTexts = i + ": " + randomNum;
+                random += randomNum.ToString();
+
+                int randomWaypoint = UnityEngine.Random.Range(0, waypointList.Count);
+                GameObject waypoint = waypointList[randomWaypoint];
+                Vector3 waypointPosition = waypoint.transform.position;
+                note.transform.position = waypointPosition;
+                waypointList.RemoveAt(randomWaypoint);
+            }
+
+            keypadCombo = Int32.Parse(random);
         }
 
 
-        //Gets value from pressedbutton
+
         public void AddInput(string input)
         {
             audioSource.PlayOneShot(buttonClickedSfx);
@@ -61,7 +91,7 @@ namespace NavKeypad
                     CheckCombo();
                     break;
                 default:
-                    if (currentInput != null && currentInput.Length == 9) // 9 max passcode size 
+                    if (currentInput != null && currentInput.Length == 4)
                     {
                         return;
                     }
@@ -88,7 +118,6 @@ namespace NavKeypad
 
         }
 
-        //mainly for animations 
         private IEnumerator DisplayResultRoutine(bool granted)
         {
             displayingResult = true;
@@ -107,9 +136,9 @@ namespace NavKeypad
         private void AccessDenied()
         {
             keypadDisplayText.text = accessDeniedText;
-            onAccessDenied?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenDeniedColor * screenIntensity);
             audioSource.PlayOneShot(accessDeniedSfx);
+            onAccessDenied?.Invoke();
         }
 
         private void ClearInput()
@@ -122,9 +151,9 @@ namespace NavKeypad
         {
             accessWasGranted = true;
             keypadDisplayText.text = accessGrantedText;
-            onAccessGranted?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenGrantedColor * screenIntensity);
             audioSource.PlayOneShot(accessGrantedSfx);
+            onAccessGranted?.Invoke();
         }
 
     }
