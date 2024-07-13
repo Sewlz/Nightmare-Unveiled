@@ -1,37 +1,28 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using System.Collections.Generic;
+
 public class Toolbar : MonoBehaviour
 {
     public Image[] slots;
-    public TMP_Text[] slotsQuantity;
     public Color selectedColor = Color.yellow;
     public Color defaultColor = Color.white;
     private int selectedIndex = 0;
-    private PlayerInventory playerInventory; // Reference to player inventory
+    public List<Item> inventory = new List<Item>();
 
     void Start()
     {
         UpdateSelection();
-        playerInventory = FindObjectOfType<PlayerInventory>(); 
-        
     }
 
     void Update()
     {
         HandleInput();
-        for (int i = 0; i < slotsQuantity.Length; i++)
-        {
-            if (slotsQuantity[i].text == "0")
-            {
-                RemoveItemFromSlot(i);
-                break;  
-            }
-        } 
     }
 
     void HandleInput()
     {
+        // Select slot with number keys
         for (int i = 0; i < slots.Length; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
@@ -41,6 +32,8 @@ public class Toolbar : MonoBehaviour
                 break;
             }
         }
+
+        // Select slot with mouse scroll
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
         {
@@ -52,6 +45,8 @@ public class Toolbar : MonoBehaviour
             selectedIndex = (selectedIndex + 1) % slots.Length;
             UpdateSelection();
         }
+
+        // Use selected item with 'E' key
         if (Input.GetKeyDown(KeyCode.E))
         {
             UseSelectedItem();
@@ -75,70 +70,48 @@ public class Toolbar : MonoBehaviour
 
     public void AddItemToSlot(Item item)
     {
-        bool itemAdded = false;
-
-        // Check if the item is an energy drink and already exists in the toolbar
-        if (item.isEnDrink)
+        for (int i = 0; i < slots.Length; i++)
         {
-            for (int i = 0; i < slots.Length; i++)
+            if (slots[i].sprite == null)
             {
-                if (slots[i].sprite != null && slots[i].sprite == item.itemIcon)
-                {
-                    UpdateQuantity(i);
-                    itemAdded = true;
-                    break;
-                }
-            }
-        }
-
-        // If the item was not an energy drink or wasn't found, add it to an empty slot
-        if (!itemAdded)
-        {
-            for (int i = 0; i < slots.Length; i++)
-            {
-                if (slots[i].sprite == null)
-                {
-                    Debug.Log("Adding item to slot: " + i);
-                    slots[i].sprite = item.itemIcon;
-                    slots[i].enabled = true;
-                    slotsQuantity[i].text = "1";
-                    break;
-                }
+                slots[i].sprite = item.itemIcon;
+                slots[i].enabled = true;
+                inventory.Add(item);
+                break;
             }
         }
     }
 
-    public void UpdateQuantity(int index)
+    public void RemoveItem(int index)
     {
-        slotsQuantity[index].text = (int.Parse(slotsQuantity[index].text) + 1).ToString();
-    }
-    public void RemoveItemFromSlot(int index){
-        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
-        playerInventory.removeFromInventory(index); 
-        Debug.Log("Removing item from slot: " + index);
-        slots[index].sprite = default;
-        slotsQuantity[index].text = "0";
-        UpdateToolbar();
-    }
-    void UpdateToolbar()
-    {
-        for (int i = 0; i < slots.Length - 1; i++)
+        if (index < inventory.Count)
         {
-            if (slots[i].sprite == null && slots[i + 1].sprite != null)
-            {
-                slots[i].sprite = slots[i + 1].sprite;
-                slotsQuantity[i].text = slotsQuantity[i + 1].text;
-
-                slots[i + 1].sprite = null;
-                slotsQuantity[i + 1].text = "0";
-            }
+            slots[index].sprite = null;
+            slots[index].enabled = false;
+            inventory.RemoveAt(index);
+            UpdateSelection();
         }
     }
+
+    public int GetSelectedIndex()
+    {
+        return selectedIndex;
+    }
+
+    public Item GetItem(int index)
+    {
+        if (index < inventory.Count)
+        {
+            return inventory[index];
+        }
+        return null;
+    }
+
     void UseSelectedItem()
     {
-        if (selectedIndex < playerInventory.inventory.Count)
+        if (selectedIndex < inventory.Count)
         {
-            Item selectedItem = playerInventory.inventory[selectedIndex];
+            Item selectedItem = inventory[selectedIndex];
             if (selectedItem.isFlashlight)
             {
                 Flashflight flashlight = FindObjectOfType<Flashflight>();
@@ -158,15 +131,19 @@ public class Toolbar : MonoBehaviour
             if (selectedItem.isEnDrink)
             {
                 EnergyDrink energyDrink = FindObjectOfType<EnergyDrink>();
-                if (energyDrink != null) {
-                    if(int.Parse(slotsQuantity[selectedIndex].text) > 0){
-                        energyDrink.Use();
-                        slotsQuantity[selectedIndex].text = (int.Parse(slotsQuantity[selectedIndex].text) - 1).ToString();
-                    }else{
-                        RemoveItemFromSlot(selectedIndex);
-                    }
+                if (energyDrink != null)
+                {
+                    energyDrink.Use();
                 }
-                
+            }
+            if (selectedItem.isFuse)
+            {
+                // Interact with fuse box if needed
+                FuseController fuseController = FindObjectOfType<FuseController>();
+                if (fuseController != null)
+                {
+                    fuseController.UseFuseFromToolbar(this);
+                }
             }
         }
     }
