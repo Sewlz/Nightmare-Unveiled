@@ -50,7 +50,7 @@ namespace NavKeypad
         private void Awake()
         {
             string random = "";
-            int i = 1;
+            int i = 0;
             int randomNum = 1;
 
             ClearInput();

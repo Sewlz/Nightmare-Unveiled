@@ -145,6 +145,14 @@ public class Toolbar : MonoBehaviour
                     fuseController.UseFuseFromToolbar(this);
                 }
             }
+            if (selectedItem.isRemote)
+            {
+                UseRemoteConrol useRemoteConrol = FindObjectOfType<UseRemoteConrol>();
+                if(useRemoteConrol != null)
+                {
+                    useRemoteConrol.ShowDistance();
+                }
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ public class Item : ScriptableObject
     public bool isNote;
     public bool isEnDrink;
     public bool isFuse;
+    public bool isRemote;
     public string paragraph;
 
     public string Paragraph { get => paragraph; set => paragraph = value; }

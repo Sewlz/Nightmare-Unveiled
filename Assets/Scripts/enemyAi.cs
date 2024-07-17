@@ -165,4 +165,9 @@ public class enemyAI : MonoBehaviour
             Debug.Log("Started chasing towards: " + targetPosition);
         }
     }
+
+    public void ChasingPlayer()
+    {
+        StartChasing(player.position);
+    }
 }
