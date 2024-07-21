@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 using TMPro;
+
 public class Toolbar : MonoBehaviour
 {
     public Image[] slots;
@@ -33,6 +35,7 @@ public class Toolbar : MonoBehaviour
 
     void HandleInput()
     {
+        // Select slot with number keys
         for (int i = 0; i < slots.Length; i++)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
@@ -42,6 +45,8 @@ public class Toolbar : MonoBehaviour
                 break;
             }
         }
+
+        // Select slot with mouse scroll
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll > 0f)
         {
@@ -53,6 +58,8 @@ public class Toolbar : MonoBehaviour
             selectedIndex = (selectedIndex + 1) % slots.Length;
             UpdateSelection();
         }
+
+        // Use selected item with 'E' key
         if (Input.GetKeyDown(KeyCode.E))
         {
             UseSelectedItem();
@@ -105,10 +112,13 @@ public class Toolbar : MonoBehaviour
             }
         }
     }
-
     public void UpdateQuantity(int index)
     {
         slotsQuantity[index].text = (int.Parse(slotsQuantity[index].text) + 1).ToString();
+    }
+    public int GetSelectedIndex()
+    {
+        return selectedIndex;
     }
     public void RemoveItemFromSlot(int index){
         PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
@@ -120,7 +130,7 @@ public class Toolbar : MonoBehaviour
     }
     void UpdateToolbar()
     {
-        for (int i = 0; i < slots.Length - 1; i++)
+       for (int i = 0; i < slots.Length - 1; i++)
         {
             if (slots[i].sprite == null && slots[i + 1].sprite != null)
             {
@@ -132,9 +142,10 @@ public class Toolbar : MonoBehaviour
             }
         }
     }
+
     void UseSelectedItem()
     {
-        if (selectedIndex < playerInventory.inventory.Count)
+if (selectedIndex < playerInventory.inventory.Count)
         {
             Item selectedItem = playerInventory.inventory[selectedIndex];
             if (selectedItem.isFlashlight)
@@ -164,7 +175,23 @@ public class Toolbar : MonoBehaviour
                         RemoveItemFromSlot(selectedIndex);
                     }
                 }
-                
+            }
+            if (selectedItem.isFuse)
+            {
+                // Interact with fuse box if needed
+                FuseController fuseController = FindObjectOfType<FuseController>();
+                if (fuseController != null)
+                {
+                    fuseController.UseFuseFromToolbar(this);
+                }
+            }
+            if (selectedItem.isRemote)
+            {
+                UseRemoteConrol useRemoteConrol = FindObjectOfType<UseRemoteConrol>();
+                if(useRemoteConrol != null)
+                {
+                    useRemoteConrol.ShowDistance();
+                }
             }
         }
     }

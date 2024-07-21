@@ -11,6 +11,8 @@ public class Item : ScriptableObject
     public bool isNote;
     public bool isEnDrink;
     public bool isMultiple;
+    public bool isFuse;
+    public bool isRemote;
     public string paragraph;
     public int quantity;
 
