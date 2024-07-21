@@ -82,8 +82,7 @@ public class Toolbar : MonoBehaviour
     }
 
     public void AddItemToSlot(Item item)
-    {
-        bool itemAdded = false;   
+    { 
         if (item.isMultiple)
         {
             for (int i = 0; i < slots.Length; i++)
@@ -91,13 +90,12 @@ public class Toolbar : MonoBehaviour
                 if (slots[i].sprite != null && slots[i].sprite == item.itemIcon)
                 {
                     UpdateQuantity(i);
-                    itemAdded = true;
+                    item.isAdded = true;
                     break;
                 }
             }
         }
-
-        if (!itemAdded)
+        if (!item.isAdded)
         {
             for (int i = 0; i < slots.Length; i++)
             {
@@ -145,7 +143,7 @@ public class Toolbar : MonoBehaviour
 
     void UseSelectedItem()
     {
-if (selectedIndex < playerInventory.inventory.Count)
+    if (selectedIndex < playerInventory.inventory.Count)
         {
             Item selectedItem = playerInventory.inventory[selectedIndex];
             if (selectedItem.isFlashlight)
@@ -178,19 +176,25 @@ if (selectedIndex < playerInventory.inventory.Count)
             }
             if (selectedItem.isFuse)
             {
-                // Interact with fuse box if needed
                 FuseController fuseController = FindObjectOfType<FuseController>();
                 if (fuseController != null)
                 {
-                    fuseController.UseFuseFromToolbar(this);
+                    if(int.Parse(slotsQuantity[selectedIndex].text) > 0){
+                        fuseController.CheckFuseBox();
+                        slotsQuantity[selectedIndex].text = (int.Parse(slotsQuantity[selectedIndex].text) - 1).ToString();
+                    }else{
+                        RemoveItemFromSlot(selectedIndex);
+                    }
                 }
             }
             if (selectedItem.isRemote)
-            {
+            {          
                 UseRemoteConrol useRemoteConrol = FindObjectOfType<UseRemoteConrol>();
                 if(useRemoteConrol != null)
                 {
-                    useRemoteConrol.ShowDistance();
+                    if(int.Parse(slotsQuantity[selectedIndex].text) > 0){
+                        useRemoteConrol.ShowDistance();
+                    }
                 }
             }
         }

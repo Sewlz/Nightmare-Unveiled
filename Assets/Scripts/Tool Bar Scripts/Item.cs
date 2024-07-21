@@ -13,6 +13,7 @@ public class Item : ScriptableObject
     public bool isMultiple;
     public bool isFuse;
     public bool isRemote;
+     public bool isAdded;
     public string paragraph;
     public int quantity;
 

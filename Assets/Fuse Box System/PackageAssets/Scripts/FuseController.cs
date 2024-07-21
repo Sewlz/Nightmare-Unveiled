@@ -72,7 +72,7 @@ public class FuseController : MonoBehaviour
 
     void PoweredUp()
     {
-        onPowerUp?.Invoke();
+        onPowerUp.Invoke();
     }
 
     public void CheckFuseBox()
@@ -91,6 +91,7 @@ public class FuseController : MonoBehaviour
             fuse1Bool = true;
             AudioManager_Fuse.instance.Play("ZapSFX");
             FusesEngaged();
+            Debug.Log("Fuses 1 are on!");
             return;
         }
 
@@ -101,6 +102,7 @@ public class FuseController : MonoBehaviour
             fuse2Bool = true;
             AudioManager_Fuse.instance.Play("ZapSFX");
             FusesEngaged();
+            Debug.Log("Fuses 2 are on!");
             return;
         }
 
@@ -111,6 +113,7 @@ public class FuseController : MonoBehaviour
             fuse3Bool = true;
             AudioManager_Fuse.instance.Play("ZapSFX");
             FusesEngaged();
+            Debug.Log("Fuses 3 are on!");
             return;
         }
 
@@ -121,6 +124,7 @@ public class FuseController : MonoBehaviour
             fuse4Bool = true;
             AudioManager_Fuse.instance.Play("ZapSFX");
             FusesEngaged();
+            Debug.Log("Fuses 4 are on!");
         }
     }
 
@@ -132,31 +136,8 @@ public class FuseController : MonoBehaviour
             powerOn = true;
             GetComponent<AudioSource>().Play();
             PoweredUp();
+            Debug.Log("Fuses are on!");
         }
         #endregion
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Toolbar toolbar = other.GetComponent<Toolbar>();
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                UseFuseFromToolbar(toolbar);
-            }
-        }
-    }
-
-    public void UseFuseFromToolbar(Toolbar toolbar)
-    {
-        int selectedIndex = toolbar.GetSelectedIndex();
-        Item selectedItem = toolbar.GetItem(selectedIndex);
-
-        if (selectedItem != null && selectedItem.isFuse)
-        {
-            toolbar.RemoveItem(selectedIndex);
-            CheckFuseBox();
-        }
     }
 }

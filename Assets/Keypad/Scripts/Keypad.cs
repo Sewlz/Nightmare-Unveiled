@@ -56,26 +56,28 @@ namespace NavKeypad
             ClearInput();
             panelMesh.material.SetVector("_EmissionColor", screenNormalColor * screenIntensity);
 
-            GameObject[] notes = GameObject.FindGameObjectsWithTag("Item");
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
             GameObject[] waypoints = GameObject.FindGameObjectsWithTag("RandomNote");
             List<GameObject> waypointList = new List<GameObject>(waypoints);
 
-            foreach (GameObject note in notes)
+            foreach (GameObject item in items)
             {
-                i++;
-                lstNote.Add(note);
-                itemPickup = note.GetComponent<ItemPickup>();
-                randomNum = UnityEngine.Random.Range(1, 10);
-                itemPickup.noteTexts = i + ": " + randomNum;
-                random += randomNum.ToString();
+                if(item.GetComponent<ItemPickup>().itemPrefab.isNote){
+                    i++;
+                    lstNote.Add(item);
+                    itemPickup = item.GetComponent<ItemPickup>();
+                    randomNum = UnityEngine.Random.Range(1, 10);
+                    itemPickup.noteTexts = i + ": " + randomNum;
+                    random += randomNum.ToString();
 
-                int randomWaypoint = UnityEngine.Random.Range(0, waypointList.Count);
-                GameObject waypoint = waypointList[randomWaypoint];
-                Vector3 waypointPosition = waypoint.transform.position;
-                note.transform.position = waypointPosition;
-                waypointList.RemoveAt(randomWaypoint);
+                    int randomWaypoint = UnityEngine.Random.Range(0, waypointList.Count);
+                    GameObject waypoint = waypointList[randomWaypoint];
+                    Vector3 waypointPosition = waypoint.transform.position;
+                    item.transform.position = waypointPosition;
+                    waypointList.RemoveAt(randomWaypoint);
+                }
             }
-
+            Debug.Log("Input string: " + random);
             keypadCombo = Int32.Parse(random);
         }
 
