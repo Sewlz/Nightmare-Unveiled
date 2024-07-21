@@ -3,12 +3,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
 
 public class DeathManager : MonoBehaviour
 {
+    public GameObject player;
     public SaveManager saveManager;
     public Camera playerCamera;
-    public Transform enemy;
+    public Transform closestEnemy;
+    public List<Transform> enemyTransforms = new List<Transform>();
     public CanvasGroup fadeGroup;
     public Image background;
     public TMP_Text youDiedText;
@@ -19,6 +22,7 @@ public class DeathManager : MonoBehaviour
 
     void Start()
     {
+        FindAllEnemies();
         background.gameObject.SetActive(false);
         fadeGroup.gameObject.SetActive(false);
         youDiedText.gameObject.SetActive(false);
@@ -30,35 +34,37 @@ public class DeathManager : MonoBehaviour
         returnToMenuButton.onClick.AddListener(ReturnToMenu);
     }
 
-
     public void TriggerDeath(Transform playerTransform)
     {
-        StartCoroutine(DeathSequence(playerTransform));
+        closestEnemy = FindClosestEnemy(playerTransform);
+        if (closestEnemy != null)
+        {
+            StartCoroutine(DeathSequence(playerTransform));
+        }
     }
 
     IEnumerator DeathSequence(Transform playerTransform)
     {
+        background.gameObject.SetActive(true);
         fadeGroup.gameObject.SetActive(true);
-        // Rotate the player's camera to face the enemy
+        
+        // Rotate the player's camera to face the closest enemy and fade in the background simultaneously
         Quaternion initialRotation = playerTransform.rotation;
-        Quaternion targetRotation = Quaternion.LookRotation(enemy.position - playerTransform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(closestEnemy.position - playerTransform.position);
 
         float t = 0;
         while (t < rotateDuration)
         {
             t += Time.deltaTime;
-            playerTransform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t / rotateDuration);
+            playerCamera.transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, t / rotateDuration);
+            fadeGroup.alpha = Mathf.Lerp(0, 1, t / rotateDuration); // Fade in the background
             yield return null;
         }
 
-        // Fade to transparent
-        t = 0;
-        while (t < fadeDuration)
-        {
-            t += Time.deltaTime;
-            fadeGroup.alpha = Mathf.Lerp(0, 1, t / fadeDuration);
-            yield return null;
-        }
+        player.SetActive(false);
+
+        // Ensure the fadeGroup is fully opaque
+        fadeGroup.alpha = 1f;
 
         // Enable cursor
         Cursor.lockState = CursorLockMode.None;
@@ -68,7 +74,6 @@ public class DeathManager : MonoBehaviour
         youDiedText.gameObject.SetActive(true);
         playAgainButton.gameObject.SetActive(true);
         returnToMenuButton.gameObject.SetActive(true);
-        background.gameObject.SetActive(true);
     }
 
     void PlayAgain()
@@ -83,5 +88,33 @@ public class DeathManager : MonoBehaviour
         // Load the main menu scene (replace "MainMenu" with your scene name)
         saveManager.ClearData();
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void FindAllEnemies()
+    {
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemyObject in enemyObjects)
+        {
+            enemyTransforms.Add(enemyObject.transform);
+        }
+    }
+
+    Transform FindClosestEnemy(Transform playerTransform)
+    {
+        Transform closest = null;
+        float minDistance = Mathf.Infinity;
+        Vector3 playerPosition = playerTransform.position;
+
+        foreach (Transform enemy in enemyTransforms)
+        {
+            float distance = Vector3.Distance(enemy.position, playerPosition);
+            if (distance < minDistance)
+            {
+                closest = enemy;
+                minDistance = distance;
+            }
+        }
+
+        return closest;
     }
 }

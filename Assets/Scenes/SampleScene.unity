@@ -9387,16 +9387,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af95b35a0f9b994680e76a9c504acd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 177270524}
   saveManager: {fileID: 177270557}
   playerCamera: {fileID: 1138883096}
-  enemy: {fileID: 498388571}
+  closestEnemy: {fileID: 0}
+  enemyTransforms: []
   fadeGroup: {fileID: 1380430242}
   background: {fileID: 1906401003}
   youDiedText: {fileID: 1771178510}
   playAgainButton: {fileID: 1786812766}
   returnToMenuButton: {fileID: 1230691119}
-  fadeDuration: 0
-  rotateDuration: 0
+  fadeDuration: 1
+  rotateDuration: 1
 --- !u!1 &642851666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3136378445983421303, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
