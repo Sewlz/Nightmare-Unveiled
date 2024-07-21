@@ -7,14 +7,14 @@ public class PlayerRaycastPickup : MonoBehaviour
     public LayerMask itemLayerMask;     // Set this to the layer used for items
 
     private Camera playerCamera;
-    private PlayerInventory playerInventory;
+    public PlayerInventory playerInventory;
     public Image crossHair;
     public TMP_Text itemDescription;
     public GameObject desCanvas;
     void Start()
     {
         playerCamera = Camera.main;
-        playerInventory = GetComponent<PlayerInventory>();
+        // playerInventory = GetComponent<PlayerInventory>();
     }
 
     void Update()

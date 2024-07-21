@@ -17,10 +17,10 @@ public class MenuManager : MonoBehaviour
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);
         controlPanel.SetActive(false);
-
+        
         if (lookScript == null)
         {
-            toolbar.enabled = false;
+            toolbar.enabled = true  ;
             lookScript = FindObjectOfType<Lookscript>();
         }
     }
@@ -34,7 +34,6 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 0; // Pause the game
         if (lookScript != null)
         {
-            toolbar.enabled = false;
             lookScript.enabled = false; // Disable look script
             toolbar.enabled = false;
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor

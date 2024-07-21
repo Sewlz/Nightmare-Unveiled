@@ -22,7 +22,7 @@ public class ItemPickup : MonoBehaviour
             bool pickedUp = playerInventory.PickUpItem(newItem, noteTexts);
             if (pickedUp)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
         else
@@ -31,7 +31,7 @@ public class ItemPickup : MonoBehaviour
             bool pickedUp = playerInventory.PickUpItem(newItem, noteTexts);
             if (pickedUp)
             {
-                Destroy(gameObject);
+               gameObject.SetActive(false);
             }
         }
     }

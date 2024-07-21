@@ -9,20 +9,17 @@ public class UiMenuSelection2 : MonoBehaviour
 
     void Start()
     {
-        
         LevelSelectionPanel.SetActive(false);
     }
 
     public void OnControlButtonClicked()
     {
-       
         mainMenuPanel.SetActive(false);
         LevelSelectionPanel.SetActive(true);
     }
 
     public void OnBackButtonClicked()
     {
-       
         mainMenuPanel.SetActive(true);
         LevelSelectionPanel.SetActive(false);
     }

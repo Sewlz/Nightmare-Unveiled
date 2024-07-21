@@ -8,18 +8,19 @@ public class Toolbar : MonoBehaviour
     public Color selectedColor = Color.yellow;
     public Color defaultColor = Color.white;
     private int selectedIndex = 0;
-    private PlayerInventory playerInventory; // Reference to player inventory
+    private PlayerInventory playerInventory;
 
     void Start()
     {
         UpdateSelection();
         playerInventory = FindObjectOfType<PlayerInventory>(); 
-        
+        LoadToolbar();
     }
 
     void Update()
     {
         HandleInput();
+         
         for (int i = 0; i < slotsQuantity.Length; i++)
         {
             if (slotsQuantity[i].text == "0")
@@ -75,10 +76,8 @@ public class Toolbar : MonoBehaviour
 
     public void AddItemToSlot(Item item)
     {
-        bool itemAdded = false;
-
-        // Check if the item is an energy drink and already exists in the toolbar
-        if (item.isEnDrink)
+        bool itemAdded = false;   
+        if (item.isMultiple)
         {
             for (int i = 0; i < slots.Length; i++)
             {
@@ -91,14 +90,13 @@ public class Toolbar : MonoBehaviour
             }
         }
 
-        // If the item was not an energy drink or wasn't found, add it to an empty slot
         if (!itemAdded)
         {
             for (int i = 0; i < slots.Length; i++)
             {
                 if (slots[i].sprite == null)
                 {
-                    Debug.Log("Adding item to slot: " + i);
+                    // Debug.Log("Adding item to slot: " + i);
                     slots[i].sprite = item.itemIcon;
                     slots[i].enabled = true;
                     slotsQuantity[i].text = "1";
@@ -115,7 +113,7 @@ public class Toolbar : MonoBehaviour
     public void RemoveItemFromSlot(int index){
         PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
         playerInventory.removeFromInventory(index); 
-        Debug.Log("Removing item from slot: " + index);
+        // Debug.Log("Removing item from slot: " + index);
         slots[index].sprite = default;
         slotsQuantity[index].text = "0";
         UpdateToolbar();
@@ -167,6 +165,19 @@ public class Toolbar : MonoBehaviour
                     }
                 }
                 
+            }
+        }
+    }
+    void LoadToolbar()
+    {
+        for (int i = 0; i < playerInventory.inventory.Count && i < slots.Length; i++)
+        {
+            Item item = playerInventory.inventory[i];
+            if (item != null)
+            {
+                slots[i].sprite = item.itemIcon;
+                slots[i].enabled = true;
+                slotsQuantity[i].text = item.quantity.ToString();
             }
         }
     }

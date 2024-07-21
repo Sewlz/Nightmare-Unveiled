@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     private UiMenuSelection uiManager;
     private UiMenuControl uiControl;
     public SceneLoader sceneLoader;
+    private GameData gameData;
     void Start()
     {
         Cursor.visible = true;
@@ -18,7 +19,12 @@ public class MainMenu : MonoBehaviour
         uiControl = FindObjectOfType<UiMenuControl>();
 
     }
-
+    public void ContinueGame(){
+        gameData = SaveSystem.LoadGame();
+        if(gameData != null){
+            SceneManager.LoadScene(gameData.currentScene);
+        }
+    }
     public void StartGame()
     {
         if (uiManager != null)

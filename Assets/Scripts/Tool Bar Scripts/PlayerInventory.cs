@@ -11,11 +11,11 @@ public class PlayerInventory : MonoBehaviour
         if (inventory.Count < toolbar.slots.Length)
         {
             inventory.Add(item);
-            for(int i=0; i<inventory.Count; i++){
-                if(inventory[i].isEnDrink){
-                    Debug.Log("EnergyDink detected.");
-                }
-            }
+            // for(int i=0; i<inventory.Count; i++){
+            //     if(inventory[i].isEnDrink){
+            //         Debug.Log("EnergyDink detected.");
+            //     }
+            // }
             toolbar.AddItemToSlot(item);
             if (item.isFlashlight)
             {
@@ -34,7 +34,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
       public void removeFromInventory(int index){
-        if(index < inventory.Count && inventory[index].isEnDrink){
+        if(index < inventory.Count && inventory[index].isMultiple){
             inventory.RemoveAt(index);
         }   
     }

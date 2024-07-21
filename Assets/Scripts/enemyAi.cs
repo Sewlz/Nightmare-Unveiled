@@ -20,7 +20,7 @@ public class enemyAI : MonoBehaviour
     public string deathScene;
     public float aiDistance;
     public GameObject hideText, stopHideText;
-
+    public DeathManager deathManager;
     void Start()
     {
         GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoint");
@@ -35,6 +35,7 @@ public class enemyAI : MonoBehaviour
 
         walkAudio.Play();
         growlAudio.Stop();
+        deathManager = FindObjectOfType<DeathManager>();
     }
 
     void Update()
@@ -138,7 +139,7 @@ public class enemyAI : MonoBehaviour
     IEnumerator deathRoutine()
     {
         yield return new WaitForSeconds(jumpscareTime);
-        SceneManager.LoadScene(deathScene);
+        deathManager.TriggerDeath(player);
     }
 
     public void OnHearFootstep(Vector3 footstepPosition)

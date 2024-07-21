@@ -5,30 +5,31 @@ using UnityEngine.SceneManagement;
 public class AwarenessManager : MonoBehaviour
 {
     public Slider awarenessSlider;
+    public Transform player;
     public float maxAwareness = 100f;
     public float currentAwareness;
-    public float awarenessDecreaseRate = 5f; // T?c ð? gi?m thanh t?nh táo
+    public float awarenessDecreaseRate = 5f; // T?c ï¿½? gi?m thanh t?nh tï¿½o
 
-    public float warningThreshold = 20f; // Ngý?ng c?nh báo, có th? ch?nh s?a t? Inspector
-    public Image warningImage; // H?nh ?nh m? màn h?nh
-    public Image noiseImage; // H?nh ?nh nhi?u màn h?nh
-    public AudioSource warningAudio; // Âm thanh c?nh báo
+    public float warningThreshold = 20f; // Ngï¿½?ng c?nh bï¿½o, cï¿½ th? ch?nh s?a t? Inspector
+    public Image warningImage; // H?nh ?nh m? mï¿½n h?nh
+    public Image noiseImage; // H?nh ?nh nhi?u mï¿½n h?nh
+    public AudioSource warningAudio; // ï¿½m thanh c?nh bï¿½o
 
     private bool isWarning = false;
-
+    public DeathManager deathManager;
     void Start()
     {
         currentAwareness = maxAwareness;
         awarenessSlider.maxValue = maxAwareness;
         awarenessSlider.value = currentAwareness;
-
-        // Ð?t alpha c?a warningImage v? 0
+        deathManager = FindObjectOfType<DeathManager>();
+        // ï¿½?t alpha c?a warningImage v? 0
         if (warningImage != null)
         {
             warningImage.color = new Color(warningImage.color.r, warningImage.color.g, warningImage.color.b, 0);
         }
 
-        // Ð?t alpha c?a noiseImage v? 0
+        // ï¿½?t alpha c?a noiseImage v? 0
         if (noiseImage != null)
         {
             noiseImage.color = new Color(noiseImage.color.r, noiseImage.color.g, noiseImage.color.b, 0);
@@ -75,12 +76,12 @@ public class AwarenessManager : MonoBehaviour
 
     void GameOver()
     {
-        SceneManager.LoadScene("DeathSCenes");
+        deathManager.TriggerDeath(player);
     }
 
     void StartWarning()
     {
-        // B?t ð?u phát âm thanh c?nh báo
+        // B?t ï¿½?u phï¿½t ï¿½m thanh c?nh bï¿½o
         if (warningAudio != null)
         {
             warningAudio.Play();
@@ -89,19 +90,19 @@ public class AwarenessManager : MonoBehaviour
 
     void StopWarning()
     {
-        // D?ng phát âm thanh c?nh báo
+        // D?ng phï¿½t ï¿½m thanh c?nh bï¿½o
         if (warningAudio != null)
         {
             warningAudio.Stop();
         }
 
-        // Ð?t l?i h?nh ?nh c?nh báo
+        // ï¿½?t l?i h?nh ?nh c?nh bï¿½o
         if (warningImage != null)
         {
             warningImage.color = new Color(warningImage.color.r, warningImage.color.g, warningImage.color.b, 0);
         }
 
-        // Ð?t l?i h?nh ?nh nhi?u
+        // ï¿½?t l?i h?nh ?nh nhi?u
         if (noiseImage != null)
         {
             noiseImage.color = new Color(noiseImage.color.r, noiseImage.color.g, noiseImage.color.b, 0);
@@ -110,14 +111,14 @@ public class AwarenessManager : MonoBehaviour
 
     void UpdateWarningEffect()
     {
-        // M? màn h?nh d?n
+        // M? mï¿½n h?nh d?n
         if (warningImage != null)
         {
             float alpha = 1.0f - (currentAwareness / (maxAwareness * (warningThreshold / 100f)));
             warningImage.color = new Color(warningImage.color.r, warningImage.color.g, warningImage.color.b, alpha);
         }
 
-        // Hi?u ?ng nhi?u màn h?nh
+        // Hi?u ?ng nhi?u mï¿½n h?nh
         if (noiseImage != null)
         {
             float noiseAlpha = 1.0f - (currentAwareness / (maxAwareness * (warningThreshold / 100f)));
