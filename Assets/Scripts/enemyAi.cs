@@ -153,7 +153,7 @@ public class enemyAI : MonoBehaviour
         StartChasing(footstepPosition);
     }
 
-    private void StartChasing(Vector3 targetPosition)
+    public void StartChasing(Vector3 targetPosition)
     {
         if (!chasing)
         {
