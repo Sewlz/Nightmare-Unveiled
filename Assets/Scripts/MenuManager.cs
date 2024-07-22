@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [Header("Panels")]
@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     [Header("Look Script")]
     [SerializeField] private Lookscript lookScript;
     [SerializeField] private Toolbar toolbar;
+    [SerializeField] public SaveManager saveManager;
     private void Start()
     {
         // Ensure all panels are initially deactivated
@@ -84,5 +85,21 @@ public class MenuManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
             Cursor.visible = false; // Hide cursor
         }
+    }
+
+    public void ReturnToMenu()
+    {
+        saveManager.SaveGame();
+        SceneManager.LoadScene("MainMenu");
+        ResumeGame();
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+     public void PlayAgain()
+    {
+        ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

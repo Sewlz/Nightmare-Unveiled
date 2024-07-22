@@ -2,14 +2,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 public class SaveManager : MonoBehaviour
 {
     public PlayerInventory playerInventory;
     public List<Transform> enemyTransforms = new List<Transform>();
     public List<GameObject> items = new List<GameObject>();
-    public Vector3 startPosition;
-    public Quaternion startRotation;
+    // public Vector3 startPosition;
+    // public Quaternion startRotation;
     public Camera playerCamera;
     public Toolbar toolbar;
 
@@ -18,8 +19,9 @@ public class SaveManager : MonoBehaviour
 
     void Start()
     {
-        startPosition = transform.position;
-        startRotation = playerCamera.transform.rotation;
+        
+        // startPosition = transform.position;
+        // startRotation = playerCamera.transform.rotation;
         currentSceneName = SceneManager.GetActiveScene().name;
         FindAllEnemies();
         FindAllItems();
@@ -111,9 +113,8 @@ public class SaveManager : MonoBehaviour
             };
         }
 
-        // Remove existing data for the current scene if it exists
+        
         gameData.scenes.RemoveAll(scene => scene.sceneName == currentSceneName);
-
         gameData.scenes.Add(sceneData);
         gameData.inventory = new List<ItemData>();
         gameData.playerPosition = new float[] { transform.position.x, transform.position.y, transform.position.z };
@@ -131,6 +132,9 @@ public class SaveManager : MonoBehaviour
                 paragraph = item.paragraph,
                 isEnDrink = item.isEnDrink,
                 isMultiple = item.isMultiple,
+                isAdded = item.isAdded,
+                isFuse = item.isFuse,
+                isRemote = item.isRemote,
                 itemIcon = item.itemIcon,
                 quantity = Int32.Parse(toolbar.slotsQuantity[i].text)
             };
@@ -149,7 +153,6 @@ public class SaveManager : MonoBehaviour
         {
             if (gameData.currentScene != currentSceneName)
             {
-                // If the current scene does not match the saved scene, clear data
                 ClearData();
                 Debug.LogWarning("Scene mismatch: Cleared data.");
                 return;
@@ -165,6 +168,9 @@ public class SaveManager : MonoBehaviour
                 item.paragraph = itemData.paragraph;
                 item.isMultiple = itemData.isMultiple;
                 item.isEnDrink = itemData.isEnDrink;
+                item.isFuse = itemData.isFuse;
+                item.isAdded = itemData.isAdded;
+                item.isRemote = itemData.isRemote;
                 item.itemIcon = itemData.itemIcon;
                 item.quantity = itemData.quantity;               
                 playerInventory.inventory.Add(item);
@@ -215,7 +221,25 @@ public class SaveManager : MonoBehaviour
         items.Clear();
         FindAllEnemies();
         FindAllItems();
-        transform.position = startPosition;
-        playerCamera.transform.rotation = startRotation;
+        // transform.position = startPosition;
+        // playerCamera.transform.rotation = startRotation;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void ReducePlayerLives()
+    {
+        if(gameData != null){
+            gameData.playerLives--;
+            Debug.Log(gameData.playerLives);
+            if (gameData.playerLives <= 0)
+            {
+                string path = Application.persistentDataPath + "/savefile.json";
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                    Debug.Log("Save file deleted.");
+                }
+                ClearData();
+            }
+        }
     }
 }

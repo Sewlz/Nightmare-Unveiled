@@ -48,7 +48,6 @@ public class DeathManager : MonoBehaviour
         background.gameObject.SetActive(true);
         fadeGroup.gameObject.SetActive(true);
         
-        // Rotate the player's camera to face the closest enemy and fade in the background simultaneously
         Quaternion initialRotation = playerTransform.rotation;
         Quaternion targetRotation = Quaternion.LookRotation(closestEnemy.position - playerTransform.position);
 
@@ -62,31 +61,25 @@ public class DeathManager : MonoBehaviour
         }
 
         player.SetActive(false);
-
-        // Ensure the fadeGroup is fully opaque
         fadeGroup.alpha = 1f;
-
-        // Enable cursor
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
-        // Show UI elements
+    
         youDiedText.gameObject.SetActive(true);
         playAgainButton.gameObject.SetActive(true);
         returnToMenuButton.gameObject.SetActive(true);
     }
 
-    void PlayAgain()
+    public void PlayAgain()
     {
-        // Reload the current scene
-        saveManager.ClearData();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (saveManager != null){
+            saveManager.ReducePlayerLives();
+        } 
     }
 
     void ReturnToMenu()
     {
-        // Load the main menu scene (replace "MainMenu" with your scene name)
-        saveManager.ClearData();
         SceneManager.LoadScene("MainMenu");
     }
 

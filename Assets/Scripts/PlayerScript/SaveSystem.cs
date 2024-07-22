@@ -39,6 +39,7 @@ public class GameData
     public float[] playerPosition;
     public float[] playerRotation;
     public string currentScene;
+    public int playerLives =3;
     public List<SceneData> scenes;
 }
 
@@ -58,6 +59,9 @@ public class ItemData
     public bool isNote;
     public bool isEnDrink;
     public bool isMultiple;
+    public bool isFuse;
+    public bool isRemote;
+     public bool isAdded;
     public string paragraph;
     public Sprite itemIcon;
     public int quantity = 0;
