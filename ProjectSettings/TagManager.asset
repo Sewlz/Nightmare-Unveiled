@@ -10,6 +10,10 @@ TagManager:
   - Gates
   - Waypoints
   - RandomNote
+  - FuseBox
+  - MonsterTrigger
+  - RandomObject
+  - waypointObject
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Water
   - UI
   - Interactable
-  - 
+  - objAnim
   - 
   - 
   - 

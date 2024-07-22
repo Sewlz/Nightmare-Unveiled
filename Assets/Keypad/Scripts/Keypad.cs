@@ -77,7 +77,6 @@ namespace NavKeypad
                     waypointList.RemoveAt(randomWaypoint);
                 }
             }
-            Debug.Log("Input string: " + random);
             keypadCombo = Int32.Parse(random);
         }
 

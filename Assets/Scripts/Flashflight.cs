@@ -6,11 +6,15 @@ public class Flashflight : MonoBehaviour
     public AudioSource turnOn;
     public AudioSource turnOff;
 
-    private bool isOn = false;
+    public bool isOn = false;
 
     void Start()
     {
         flashLight.SetActive(false);
+        if (isOn)
+        {
+            flashLight.SetActive(true);
+        }
     }
 
     public void ToggleFlashlight()
