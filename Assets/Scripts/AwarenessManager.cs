@@ -6,6 +6,7 @@ public class AwarenessManager : MonoBehaviour
 {
     public Slider awarenessSlider;
     public Transform player;
+    public GameObject playerObject;
     public float maxAwareness = 100f;
     public float currentAwareness;
     public float awarenessDecreaseRate = 5f; // T?c �? gi?m thanh t?nh t�o
@@ -76,6 +77,7 @@ public class AwarenessManager : MonoBehaviour
 
     void GameOver()
     {
+        playerObject.SetActive(false);
         deathManager.TriggerDeath(player);
     }
 

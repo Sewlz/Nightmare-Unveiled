@@ -34,32 +34,4 @@ public class PlayerInventory : MonoBehaviour
             inventory.RemoveAt(index);
         }   
     }
-    // public bool EnergyDrinkCheck(){
-    //    for(int i=0; i<inventory.Count; i++){
-    //        if(inventory[i].isEnDrink){
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    // }
-    // //Fuse code
-    //    public bool HasFuse()
-    // {
-    //     return inventory.Exists(item => item.isFuse);
-    // }
-
-    // public void RemoveFuse()
-    // {
-    //     Item fuseItem = inventory.Find(item => item.isFuse);
-    //     if (fuseItem != null)
-    //     {
-    //         inventory.Remove(fuseItem);
-    //         // Update toolbar UI if necessary
-    //     }
-    // }
-
-    // public Item GetFuse()
-    // {
-    //     return inventory.Find(item => item.isFuse);
-    // }
 }

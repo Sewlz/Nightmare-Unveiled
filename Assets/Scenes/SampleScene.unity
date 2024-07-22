@@ -2867,6 +2867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   awarenessSlider: {fileID: 557226666}
   player: {fileID: 177270529}
+  playerObject: {fileID: 177270524}
   maxAwareness: 100
   currentAwareness: 0
   awarenessDecreaseRate: 5
@@ -5764,7 +5765,7 @@ RectTransform:
   m_Father: {fileID: 679839945}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8508,7 +8509,7 @@ RectTransform:
   m_Father: {fileID: 1174827080}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9386,16 +9387,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0af95b35a0f9b994680e76a9c504acd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 177270524}
   saveManager: {fileID: 177270557}
   playerCamera: {fileID: 1138883096}
-  enemy: {fileID: 498388571}
+  closestEnemy: {fileID: 0}
+  enemyTransforms: []
   fadeGroup: {fileID: 1380430242}
   background: {fileID: 1906401003}
   youDiedText: {fileID: 1771178510}
   playAgainButton: {fileID: 1786812766}
   returnToMenuButton: {fileID: 1230691119}
-  fadeDuration: 0
-  rotateDuration: 0
+  fadeDuration: 1
+  rotateDuration: 1
 --- !u!1 &642851666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3136378445983421303, guid: e4430f64495a2f648aa977c0da9f3fdb, type: 3}
@@ -30740,6 +30743,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FuseBox_Parent_1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011307361224, guid: 6f0a124dad7deec42bf28f0bdb2c5f61, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1000011987549470, guid: 6f0a124dad7deec42bf28f0bdb2c5f61, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -39254,7 +39261,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2088354338
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -66,14 +66,14 @@ public class enemyAI : MonoBehaviour
         dest = player.position;
         ai.destination = dest;
         ai.speed = chaseSpeed;
+        ai.stoppingDistance = catchDistance; // Set stopping distance
         aiAnimation.ResetTrigger("walk");
         aiAnimation.ResetTrigger("idle");
         aiAnimation.SetTrigger("sprint");
-        
-        if (!ai.pathPending && aiDistance <= catchDistance)
+
+        if (!ai.pathPending && ai.remainingDistance <= catchDistance)
         {
             Debug.Log("Player caught by the monster.");
-            player.gameObject.SetActive(false);
             aiAnimation.ResetTrigger("walk");
             aiAnimation.ResetTrigger("idle");
             hideText.SetActive(false);
@@ -83,6 +83,11 @@ public class enemyAI : MonoBehaviour
             walkAudio.Stop();
             chaseAudio.Stop();
             aiAnimation.SetTrigger("jumpscare");
+
+            // Adjust enemy position to maintain distance
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            transform.position = player.position - directionToPlayer * catchDistance;
+
             StartCoroutine(deathRoutine());
             Debug.Log("Disabled player and stopped all sounds.");
             chasing = false;

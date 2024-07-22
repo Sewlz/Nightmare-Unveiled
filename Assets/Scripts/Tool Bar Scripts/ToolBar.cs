@@ -177,13 +177,17 @@ public class Toolbar : MonoBehaviour
             if (selectedItem.isFuse)
             {
                 FuseController fuseController = FindObjectOfType<FuseController>();
+                PlayerRaycastPickup raycastPickup = FindObjectOfType<PlayerRaycastPickup>();
                 if (fuseController != null)
                 {
-                    if(int.Parse(slotsQuantity[selectedIndex].text) > 0){
-                        fuseController.CheckFuseBox();
-                        slotsQuantity[selectedIndex].text = (int.Parse(slotsQuantity[selectedIndex].text) - 1).ToString();
-                    }else{
-                        RemoveItemFromSlot(selectedIndex);
+                    if(raycastPickup.FuseBoxCheck()){
+                        if(int.Parse(slotsQuantity[selectedIndex].text) > 0){
+                            Debug.Log("Fusebox detected");
+                            fuseController.CheckFuseBox();
+                            slotsQuantity[selectedIndex].text = (int.Parse(slotsQuantity[selectedIndex].text) - 1).ToString();
+                        }else{
+                            RemoveItemFromSlot(selectedIndex);
+                        }
                     }
                 }
             }
