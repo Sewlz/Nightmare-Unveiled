@@ -17,4 +17,5 @@ MonoBehaviour:
   isFlashlight: 0
   isNote: 0
   isEnDrink: 1
+  isMultiple: 1
   paragraph: 

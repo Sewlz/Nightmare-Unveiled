@@ -10,7 +10,12 @@ public class Item : ScriptableObject
     public bool isFlashlight;
     public bool isNote;
     public bool isEnDrink;
+    public bool isMultiple;
+    public bool isFuse;
+    public bool isRemote;
+     public bool isAdded;
     public string paragraph;
+    public int quantity;
 
     public string Paragraph { get => paragraph; set => paragraph = value; }
 }

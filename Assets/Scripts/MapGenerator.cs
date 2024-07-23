@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -9,6 +10,7 @@ public class MapGenerator : MonoBehaviour
     private float spawnZ = 0.0f;
     public float tileLength = 12.0f;
     public int amnTilesOnScreen = 3;
+    public NavMeshSurface navMeshSurface;
 
     void Start()
     {

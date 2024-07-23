@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [Header("Panels")]
@@ -10,16 +10,18 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject controlPanel;
     [Header("Look Script")]
     [SerializeField] private Lookscript lookScript;
-
+    [SerializeField] private Toolbar toolbar;
+    [SerializeField] public SaveManager saveManager;
     private void Start()
     {
         // Ensure all panels are initially deactivated
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);
         controlPanel.SetActive(false);
-
+        
         if (lookScript == null)
         {
+            toolbar.enabled = true  ;
             lookScript = FindObjectOfType<Lookscript>();
         }
     }
@@ -34,6 +36,7 @@ public class MenuManager : MonoBehaviour
         if (lookScript != null)
         {
             lookScript.enabled = false; // Disable look script
+            toolbar.enabled = false;
             Cursor.lockState = CursorLockMode.None; // Unlock the cursor
             Cursor.visible = true; // Show cursor
         }
@@ -78,8 +81,25 @@ public class MenuManager : MonoBehaviour
         if (lookScript != null)
         {
             lookScript.enabled = true; // Enable look script
+            toolbar.enabled = true;
             Cursor.lockState = CursorLockMode.Locked; // Lock the cursor
             Cursor.visible = false; // Hide cursor
         }
+    }
+
+    public void ReturnToMenu()
+    {
+        saveManager.SaveGame();
+        SceneManager.LoadScene("MainMenu");
+        ResumeGame();
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+     public void PlayAgain()
+    {
+        ResumeGame();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

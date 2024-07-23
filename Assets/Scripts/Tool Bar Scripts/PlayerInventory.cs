@@ -6,6 +6,7 @@ public class PlayerInventory : MonoBehaviour
     public List<Item> inventory = new List<Item>();
     public Toolbar toolbar;
     public Flashflight flashlight;
+
     public bool PickUpItem(Item item, string noteText)
     {
         if (inventory.Count < toolbar.slots.Length)
@@ -19,7 +20,6 @@ public class PlayerInventory : MonoBehaviour
                 {
                     flashlight.flashLight.SetActive(false);
                 }
-              
             }
             return true;
         }
@@ -28,5 +28,10 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Inventory is full.");
             return false;
         }
+    }
+      public void removeFromInventory(int index){
+        if(index < inventory.Count && inventory[index].isMultiple){
+            inventory.RemoveAt(index);
+        }   
     }
 }

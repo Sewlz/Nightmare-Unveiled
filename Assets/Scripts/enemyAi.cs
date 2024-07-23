@@ -20,7 +20,7 @@ public class enemyAI : MonoBehaviour
     public string deathScene;
     public float aiDistance;
     public GameObject hideText, stopHideText;
-
+    public DeathManager deathManager;
     void Start()
     {
         GameObject[] waypoints = GameObject.FindGameObjectsWithTag("waypoint");
@@ -35,6 +35,7 @@ public class enemyAI : MonoBehaviour
 
         walkAudio.Play();
         growlAudio.Stop();
+        deathManager = FindObjectOfType<DeathManager>();
     }
 
     void Update()
@@ -65,14 +66,14 @@ public class enemyAI : MonoBehaviour
         dest = player.position;
         ai.destination = dest;
         ai.speed = chaseSpeed;
+        ai.stoppingDistance = catchDistance; // Set stopping distance
         aiAnimation.ResetTrigger("walk");
         aiAnimation.ResetTrigger("idle");
         aiAnimation.SetTrigger("sprint");
-        
-        if (!ai.pathPending && aiDistance <= catchDistance)
+
+        if (!ai.pathPending && ai.remainingDistance <= catchDistance)
         {
             Debug.Log("Player caught by the monster.");
-            player.gameObject.SetActive(false);
             aiAnimation.ResetTrigger("walk");
             aiAnimation.ResetTrigger("idle");
             hideText.SetActive(false);
@@ -82,6 +83,11 @@ public class enemyAI : MonoBehaviour
             walkAudio.Stop();
             chaseAudio.Stop();
             aiAnimation.SetTrigger("jumpscare");
+
+            // Adjust enemy position to maintain distance
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            transform.position = player.position - directionToPlayer * catchDistance;
+
             StartCoroutine(deathRoutine());
             Debug.Log("Disabled player and stopped all sounds.");
             chasing = false;
@@ -138,7 +144,7 @@ public class enemyAI : MonoBehaviour
     IEnumerator deathRoutine()
     {
         yield return new WaitForSeconds(jumpscareTime);
-        SceneManager.LoadScene(deathScene);
+        deathManager.TriggerDeath(player);
     }
 
     public void OnHearFootstep(Vector3 footstepPosition)
@@ -147,7 +153,7 @@ public class enemyAI : MonoBehaviour
         StartChasing(footstepPosition);
     }
 
-    private void StartChasing(Vector3 targetPosition)
+    public void StartChasing(Vector3 targetPosition)
     {
         if (!chasing)
         {
@@ -164,5 +170,10 @@ public class enemyAI : MonoBehaviour
             chaseAudio.Play();
             Debug.Log("Started chasing towards: " + targetPosition);
         }
+    }
+
+    public void ChasingPlayer()
+    {
+        StartChasing(player.position);
     }
 }

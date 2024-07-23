@@ -7,7 +7,7 @@ public class UiManager : MonoBehaviour
     [Header("LevelSelection")]
     [SerializeField] private GameObject levelSelection1;
     [SerializeField] private GameObject levelSelection2;
-
+    
     private void Awake()
     {
         if (levelSelection1 == null || levelSelection2 == null)
