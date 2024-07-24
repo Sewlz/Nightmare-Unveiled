@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "E:\\Unity\\Nightmare-Unveiled\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\settingscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\tool bar scripts\\playerraycastpickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tool bar scripts\\playerraycastpickup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\jumpscaretrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\jumpscaretrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\tool bar scripts\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tool bar scripts\\toolbar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\scripts\\tool bar scripts\\playerinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\tool bar scripts\\playerinventory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|e:\\unity\\nightmare-unveiled\\assets\\fuse box system\\packageassets\\scripts\\fusecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{18D9F7AF-BF9A-3EA1-5CDB-D5678102BC3E}|Assembly-CSharp.csproj|solutionrelative:assets\\fuse box system\\packageassets\\scripts\\fusecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +26,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SettingsController.cs",
-              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\SettingsController.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\SettingsController.cs",
-              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\SettingsController.cs",
-              "RelativeToolTip": "Assets\\Scripts\\SettingsController.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAAgwBAAAAAAAAAA",
+              "DocumentIndex": 1,
+              "Title": "ToolBar.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\ToolBar.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Tool Bar Scripts\\ToolBar.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\ToolBar.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Tool Bar Scripts\\ToolBar.cs",
+              "ViewState": "AQIAAIoAAAAAAAAAAAAIwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T14:01:12.872Z",
+              "WhenOpened": "2024-07-23T17:22:56.618Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "JumpscareTrigger.cs",
-              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\JumpscareTrigger.cs",
-              "RelativeDocumentMoniker": "Assets\\Scripts\\JumpscareTrigger.cs",
-              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\JumpscareTrigger.cs",
-              "RelativeToolTip": "Assets\\Scripts\\JumpscareTrigger.cs",
-              "ViewState": "AQIAAI0AAAAAAAAAAAAqwJwAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "PlayerInventory.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\PlayerInventory.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Tool Bar Scripts\\PlayerInventory.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\PlayerInventory.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Tool Bar Scripts\\PlayerInventory.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T12:46:16.033Z",
+              "WhenOpened": "2024-07-23T17:22:43.318Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerRaycastPickup.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\PlayerRaycastPickup.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Tool Bar Scripts\\PlayerRaycastPickup.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Scripts\\Tool Bar Scripts\\PlayerRaycastPickup.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Tool Bar Scripts\\PlayerRaycastPickup.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAmwDUAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T17:22:21.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FuseController.cs",
+              "DocumentMoniker": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Fuse Box System\\PackageAssets\\Scripts\\FuseController.cs",
+              "RelativeDocumentMoniker": "Assets\\Fuse Box System\\PackageAssets\\Scripts\\FuseController.cs",
+              "ToolTip": "E:\\Unity\\Nightmare-Unveiled\\Assets\\Fuse Box System\\PackageAssets\\Scripts\\FuseController.cs",
+              "RelativeToolTip": "Assets\\Fuse Box System\\PackageAssets\\Scripts\\FuseController.cs",
+              "ViewState": "AQIAAGcAAAAAAAAAAAAqwI8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-23T17:12:29.914Z",
               "EditorCaption": ""
             }
           ]
