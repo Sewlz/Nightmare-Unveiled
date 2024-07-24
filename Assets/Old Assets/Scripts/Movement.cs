@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
 
     void Start()
     {
+
         // Save the original height of the CharacterController
         originalControllerHeight = controller.height;
 

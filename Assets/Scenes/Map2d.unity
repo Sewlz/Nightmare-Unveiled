@@ -28278,6 +28278,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.1, z: 1.8143966}
   m_Center: {x: 1.318788e-15, y: 0, z: 0.40719843}
+--- !u!114 &1012037554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7419642694135801682, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
+  m_PrefabInstance: {fileID: 550338835}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012037544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c7462d42c9b2441ba4a3038cb547c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1012852134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49495,6 +49506,7 @@ MonoBehaviour:
   itemLayerMask:
     serializedVersion: 2
     m_Bits: 8
+  playerInventory: {fileID: 0}
   crossHair: {fileID: 0}
   itemDescription: {fileID: 0}
   desCanvas: {fileID: 0}
@@ -49601,6 +49613,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   awarenessSlider: {fileID: 0}
+  player: {fileID: 0}
+  playerObject: {fileID: 0}
   maxAwareness: 100
   currentAwareness: 0
   awarenessDecreaseRate: 5
@@ -49608,6 +49622,7 @@ MonoBehaviour:
   warningImage: {fileID: 0}
   noiseImage: {fileID: 0}
   warningAudio: {fileID: 1728477567}
+  deathManager: {fileID: 0}
 --- !u!114 &1728477575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49623,6 +49638,7 @@ MonoBehaviour:
   flashLight: {fileID: 1893443001}
   turnOn: {fileID: 1043991831}
   turnOff: {fileID: 1043991831}
+  isOn: 0
 --- !u!4 &1728477579 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2394007880172708437, guid: aae753480bd2d3f47831abb1c6cc6596, type: 3}
@@ -57405,8 +57421,9 @@ MonoBehaviour:
   pausePanel: {fileID: 1062677745}
   optionsPanel: {fileID: 1254068006}
   controlPanel: {fileID: 1632538080}
-  lookScript: {fileID: 0}
+  lookScript: {fileID: 1012037554}
   toolbar: {fileID: 1852800842}
+  saveManager: {fileID: 0}
 --- !u!114 &1992293730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57451,6 +57468,8 @@ MonoBehaviour:
   Pausegame: {fileID: 1062677745}
   lookScript: {fileID: 0}
   menuManager: {fileID: 1992293729}
+  settingsPanel: {fileID: 1254068006}
+  controlPanel: {fileID: 1632538080}
 --- !u!114 &1992293733
 MonoBehaviour:
   m_ObjectHideFlags: 0
