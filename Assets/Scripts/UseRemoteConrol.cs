@@ -11,14 +11,21 @@ public class UseRemoteConrol : MonoBehaviour
     public GameObject note;
     public GameObject text;
     public TextMeshProUGUI textDistance;
+    public float timeShow = 5f;
 
     public void ShowDistance()
     {
         GameObject[] notes = GameObject.FindGameObjectsWithTag("Item");
-        List<GameObject> lstNote = new List<GameObject>(notes);
-        note = lstNote[numNote];
+        note = notes[numNote];
         noteDistance = Mathf.Round(Vector3.Distance(player.position, note.transform.position));
         text.SetActive(true);
         textDistance.text = "Note distance: " + noteDistance + "m";
+        StartCoroutine(DeactivateTextAfterTime(timeShow));
+    }
+
+    IEnumerator DeactivateTextAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        text.SetActive(false);
     }
 }

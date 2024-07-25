@@ -83,7 +83,7 @@ public class DeathManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void FindAllEnemies()
+    public void FindAllEnemies()
     {
         GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemyObject in enemyObjects)

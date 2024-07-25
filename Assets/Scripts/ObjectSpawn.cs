@@ -8,9 +8,9 @@ public class ObjectSpawn : MonoBehaviour
 {
     public GameObject monster;
     public Transform player;
-    enemyAI enemyAI;
     public GameObject[] objs;
     GameObject[] posObjs;
+    public DeathManager deathManager;
 
 
     void Start()
@@ -31,6 +31,7 @@ public class ObjectSpawn : MonoBehaviour
             currentPos.z = incomingPos.z;
             obj.transform.position = currentPos;
         }
+        monster.SetActive(false);
     }
 
     void Update()
@@ -43,6 +44,7 @@ public class ObjectSpawn : MonoBehaviour
         if (other.gameObject.CompareTag("MonsterTrigger"))
         {
             monster.SetActive(true);
+            deathManager.FindAllEnemies();
             if (objs.Length > 0)
             {
                 foreach (GameObject obj in objs)
@@ -50,7 +52,6 @@ public class ObjectSpawn : MonoBehaviour
                     obj.SetActive(true);
                 }
             }
-            enemyAI.StartChasing(player.position);
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("objAnim"))
         {

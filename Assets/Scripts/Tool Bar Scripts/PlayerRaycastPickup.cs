@@ -56,7 +56,7 @@ public class PlayerRaycastPickup : MonoBehaviour
     public bool FuseBoxCheck(){
         Ray ray = playerCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-         if (Physics.Raycast(ray, out hit, raycastDistance, LayerMask.GetMask("FuseBox")))
+         if (Physics.Raycast(ray, out hit, raycastDistance, LayerMask.GetMask("objAnim")))
         {
             return true;
         }else{

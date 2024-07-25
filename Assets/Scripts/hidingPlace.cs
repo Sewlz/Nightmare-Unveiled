@@ -10,12 +10,14 @@ public class HidingPlace : MonoBehaviour
     public Transform monsterTransform;
     bool interactable, hiding;
     public float loseDistance;
+    public AudioSource openDoor;
 
     void Start()
     {
         interactable = false;
         hiding = false;
         hidingPlayer.SetActive(false);
+        openDoor.Stop();
     }
 
 
@@ -43,6 +45,7 @@ public class HidingPlace : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                openDoor.Play();
                 hideText.SetActive(false );
                 hidingPlayer.SetActive(true);
                 float distance = Vector3.Distance(monsterTransform.position, normalPlayer.transform.position);
@@ -63,6 +66,7 @@ public class HidingPlace : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.Q))
             {
+                openDoor.Play();
                 stopHideText.SetActive(false);
                 normalPlayer.SetActive(true);
                 hidingPlayer.SetActive(false);

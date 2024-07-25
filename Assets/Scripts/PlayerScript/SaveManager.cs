@@ -19,7 +19,7 @@ public class SaveManager : MonoBehaviour
 
     void Start()
     {
-        
+
         // startPosition = transform.position;
         // startRotation = playerCamera.transform.rotation;
         currentSceneName = SceneManager.GetActiveScene().name;
@@ -80,10 +80,10 @@ public class SaveManager : MonoBehaviour
         {
             if (item != null)
             {
-                itemStates.Add(new ItemStateData 
-                { 
-                    position = new float[] { item.transform.position.x, item.transform.position.y, item.transform.position.z }, 
-                    isActive = item.activeSelf 
+                itemStates.Add(new ItemStateData
+                {
+                    position = new float[] { item.transform.position.x, item.transform.position.y, item.transform.position.z },
+                    isActive = item.activeSelf
                 });
                 Debug.Log($"Saving item position: {item.transform.position}, active: {item.activeSelf}");
             }
@@ -113,7 +113,7 @@ public class SaveManager : MonoBehaviour
             };
         }
 
-        
+
         gameData.scenes.RemoveAll(scene => scene.sceneName == currentSceneName);
         gameData.scenes.Add(sceneData);
         gameData.inventory = new List<ItemData>();
@@ -153,7 +153,8 @@ public class SaveManager : MonoBehaviour
         {
             if (gameData.currentScene != currentSceneName)
             {
-                ClearData();
+                DeleteData();
+                SaveGame();
                 Debug.LogWarning("Scene mismatch: Cleared data.");
                 return;
             }
@@ -172,7 +173,7 @@ public class SaveManager : MonoBehaviour
                 item.isAdded = itemData.isAdded;
                 item.isRemote = itemData.isRemote;
                 item.itemIcon = itemData.itemIcon;
-                item.quantity = itemData.quantity;               
+                item.quantity = itemData.quantity;
                 playerInventory.inventory.Add(item);
             }
 
@@ -227,7 +228,8 @@ public class SaveManager : MonoBehaviour
     }
     public void ReducePlayerLives()
     {
-        if(gameData != null){
+        if (gameData != null)
+        {
             gameData.playerLives--;
             Debug.Log(gameData.playerLives);
             if (gameData.playerLives <= 0)
@@ -241,5 +243,15 @@ public class SaveManager : MonoBehaviour
                 ClearData();
             }
         }
+    }
+    public void DeleteData()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("Save file deleted.");
+        }
+        ClearData();
     }
 }

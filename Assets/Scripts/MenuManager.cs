@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] public SaveManager saveManager;
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         // Ensure all panels are initially deactivated
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);

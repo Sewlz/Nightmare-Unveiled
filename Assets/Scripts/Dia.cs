@@ -134,7 +134,7 @@ public class Dia : MonoBehaviour
 
     void LoadNextScene()
     {
-        SceneManager.LoadScene("Chapter1");
+        SceneManager.LoadScene("AfterCredit");
     }
 
     IEnumerator FadeOutAndLoadNextScene()

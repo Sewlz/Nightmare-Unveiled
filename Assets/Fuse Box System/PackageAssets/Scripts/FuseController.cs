@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using static UnityEditor.Progress;
 
 public class FuseController : MonoBehaviour
 {
@@ -41,6 +44,9 @@ public class FuseController : MonoBehaviour
     [SerializeField] private UnityEvent onPowerUp;
     #endregion
 
+    public GameObject[] items;
+    public GameObject[] waypoints;
+
     void Start()
     {
         #region Set Light Colour/Fuse Objects, if any fuses booleans are currently set
@@ -68,6 +74,20 @@ public class FuseController : MonoBehaviour
             fuseObject4.SetActive(true);
         }
         #endregion
+
+
+        items = GameObject.FindGameObjectsWithTag("Item");
+        waypoints = GameObject.FindGameObjectsWithTag("RandomNote");
+        List<GameObject> waypointList = new List<GameObject>(waypoints);
+
+        foreach (GameObject item in items)
+        {
+            int randomWaypoint = UnityEngine.Random.Range(0, waypointList.Count);
+            GameObject waypoint = waypointList[randomWaypoint];
+            Vector3 waypointPosition = waypoint.transform.position;
+            item.transform.position = waypointPosition;
+            waypointList.RemoveAt(randomWaypoint);
+        }
     }
 
     void PoweredUp()
