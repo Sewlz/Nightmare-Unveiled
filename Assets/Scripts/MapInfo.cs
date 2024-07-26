@@ -1,27 +1,38 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public static class MapInfo
 {
     private static Dictionary<string, string> mapNames = new Dictionary<string, string>()
     {
-        { "Chapter1", "Chapter 1: The Beginning" },
-        { "Chapter2", "Chapter 2: The Adventure Continues" },
-        // Thêm các map khác ? ðây
+        { "Map1", "Chapter 1: The Lobby" },
+        { "Map2", "Chapter 2: Abandoned Office" },
+        { "Map3", "Chapter 3: Electrical Station" },
+        { "Map4", "Chapter 4: Pipe Dreams" },
+        // ThÃªm cÃ¡c map khÃ¡c ? Ä‘Ã¢y
     };
 
     private static Dictionary<string, string> mapTips = new Dictionary<string, string>()
     {
-        { "Chapter1", "Tip: Explore the area to find hidden items." },
-        { "Chapter2", "Tip: Watch out for enemies around the corners." },
-        // Thêm các tips khác ? ðây
+        { "Map1","<color=red>Tip:</color><br><br><line-height=170%>Search for notes, symbols, or other clues that might guide you to the door leading to the exit."},
+
+        { "Map2", "<color=red>Tip:</color><br><br><line-height=170%>Carefully search every area to ensure you don't miss any sticky notes scattered throughout the map." },
+
+        { "Map3", "<color=red>Tip:</color><br><br><line-height=170%>Search for and attach the fuse to the switch to open the door. The fuses are scattered throughout the map, " +
+            "possibly on shelves, in drawers, or under items. Carefully check every nook and cranny to ensure you find all the necessary fuses." },
+
+        { "Map4", "<color=red>Tip:</color><br><br><line-height=170%>Find your way through the underground piping system to reach the end and escape the dream to wake up. " +
+            "Navigate through obstacles such as blocked drains, barriers, or debris in the pipes." },
+        // ThÃªm cÃ¡c tips khÃ¡c ? Ä‘Ã¢y
     };
 
     private static Dictionary<string, string> mapBackgrounds = new Dictionary<string, string>()
     {
-        { "Chapter1", "Backgrounds/Chapter1" },
-        { "Chapter2", "Backgrounds/Chapter2" },
-        // Thêm các ðý?ng d?n t?i background image khác ? ðây
+        { "Map1", "Backgrounds/Map1" },
+        { "Map2", "Backgrounds/Map2" },
+        { "Map3", "Backgrounds/Map3" },
+        { "Map4", "Backgrounds/Map4" },
+        // ThÃªm cÃ¡c Ä‘Æ°?ng d?n t?i background image khÃ¡c ? Ä‘Ã¢y
     };
 
     public static string GetMapName(string sceneName)

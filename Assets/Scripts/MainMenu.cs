@@ -91,4 +91,9 @@ public class MainMenu : MonoBehaviour
             uiControl.BackToMainMenu();
         }
     }
+
+    public void LoadIntroScenes()
+    {
+        SceneManager.LoadScene("IntroScene");
+    }
 }

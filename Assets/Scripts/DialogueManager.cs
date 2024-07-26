@@ -139,7 +139,8 @@ public class DialogueManager : MonoBehaviour
 
     void LoadNextScene()
     {
-        SceneManager.LoadScene("Chapter1");
+        PlayerPrefs.SetString("NextScene", "Map1");
+        SceneManager.LoadScene("LoadingScreen");
     }
 
     IEnumerator FadeOutAndLoadNextScene()
