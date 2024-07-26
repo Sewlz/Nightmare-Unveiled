@@ -7,8 +7,6 @@ Welcome to **Nightmare Unveiled**, a spine-chilling horror game based on the eer
 - [Creating a Unity Project](#creating-a-unity-project)
 - [Deleting Unnecessary Files](#deleting-unnecessary-files)
 - [Initializing Git and Cloning the Repository](#initializing-git-and-cloning-the-repository)
-- [About the Game](#about-the-game)
-- [License](#license)
 
 ## Creating a Unity Project
 
