@@ -12,7 +12,7 @@ Welcome to **Nightmare Unveiled**, a spine-chilling horror game based on the eer
 
 1. Open Unity Hub.
 2. Click on the **New Project** button.
-3. Select the appropriate template (e.g., 3D, URP).
+3. Select `Unity 3D` template.
 4. Name your project `Nightmare Unveiled`.
 5. Choose a location on your system to save the project.
 6. Click **Create**.
